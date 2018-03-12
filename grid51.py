@@ -59,7 +59,7 @@ if __name__ == "__main__":
     agent = C51Agent(state_size, action_size, num_atoms)
 
     agent.model = Networks.value_distribution_network(state_size, num_atoms, action_size, agent.learning_rate)
-    # agent.load_model("models/c51_ddqn.h5")
+    agent.load_model("models/c51_ddqn.h5")
     agent.target_model = Networks.value_distribution_network(state_size, num_atoms, action_size, agent.learning_rate)
 
     data = range(img_rows * img_cols)
@@ -80,49 +80,36 @@ if __name__ == "__main__":
     life = 0
 
     # Buffer to compute rolling statistics
-    life_buffer, ammo_buffer, kills_buffer, reward_buffer = [], [], [], []
+    final_state_buffer, reward_buffer, steps_buffer = [], [], []
 
     while not is_terminated:
-
-
 
         loss = 0
         r_t = 0
         a_t = np.zeros([action_size])
 
-        env.render()
-        agent.plot_histogram(s_t1)
+        # env.render()
+        # agent.plot_histogram(s_t1)
 
         # Epsilon Greedy
         # action_idx = input("action")
-        # hay error en la forma del arreglo...S
         action_idx = agent.get_action(s_t)
-        # print("action_idx")
-        # print(action_idx)
         a_t[action_idx] = 1
         obs, r_t, done, misc = env.step(action_idx)
         is_terminated = done
-        # print("obs")
-        # print(obs)
 
         if is_terminated:
             if life > max_life:
                 max_life = life
             GAME += 1
-            life_buffer.append(life)
-            # ammo_buffer.append(misc[1])
-            # kills_buffer.append(misc[0])
-            print("Episode Finish ", t, misc)
+            final_state_buffer.append(misc['step_seq'][-1])
+            steps_buffer.append(len(misc['step_seq']))
+            reward_buffer.append(misc['sum_reward'])
             env.reset()
 
-
         x_t1 = np.reshape(to_categorical(data)[obs], (img_rows, img_cols))
-        # print(x_t1.shape)
         x_t1 = np.reshape(x_t1, (1, img_rows, img_cols, 1))
-        # print(x_t1.shape)
         s_t1 = np.append(x_t1, s_t[:, :, :, :1], axis=3)
-        # print(s_t1.shape)
-        # print(s_t1)
 
         r_t = agent.shape_reward(r_t, misc, prev_misc, t, is_terminated)
 
@@ -140,16 +127,16 @@ if __name__ == "__main__":
         # loss = agent.train_replay()
 
         # Do the training
-        if t > agent.observe and t % agent.timestep_per_train == 0:
-            loss = agent.train_replay()
+        # if t > agent.observe and t % agent.timestep_per_train == 0:
+        #     loss = agent.train_replay()
 
         s_t = s_t1
         t += 1
 
         # save progress every 10000 iterations
-        if t % 100 == 0:
-            print("Now we save model")
-            agent.model.save_weights("models/c51_ddqn.h5", overwrite=True)
+        # if t % 100 == 0:
+        #     print("Now we save model")
+        #     agent.model.save_weights("models/c51_ddqn.h5", overwrite=True)
 
         # print info
         state = ""
@@ -165,27 +152,23 @@ if __name__ == "__main__":
             print("TIME", t, "/ GAME", GAME, "/ STATE", state, \
                   "/ EPSILON", agent.epsilon, "/ ACTION", action_idx, "/ REWARD", r_t, \
                   "/ LIFE", max_life, "/ LOSS", loss)
-        #
-        #     # Save Agent's Performance Statistics
-        #     if GAME % agent.stats_window_size == 0 and t > agent.observe:
-        #         print("Update Rolling Statistics")
-        #         agent.mavg_reward.append(np.mean(np.array(reward_buffer)))
-        #         agent.var_reward.append(np.var(np.array(reward_buffer)))
-        #         agent.mavg_score.append(np.mean(np.array(life_buffer)))
-        #         agent.var_score.append(np.var(np.array(life_buffer)))
-        #         # agent.mavg_ammo_left.append(np.mean(np.array(ammo_buffer)))
-        #         # agent.mavg_kill_counts.append(np.mean(np.array(kills_buffer)))
-        #
-        #         # Reset rolling stats buffer
-        #         life_buffer, ammo_buffer, kills_buffer = [], [], []
-        #
-        #         # Write Rolling Statistics to file
-        #         with open("statistics/c51_ddqn_stats.txt", "w") as stats_file:
-        #             stats_file.write('Game: ' + str(GAME) + '\n')
-        #             stats_file.write('Max Score: ' + str(max_life) + '\n')
-        #             stats_file.write('mavg_reward: ' + str(agent.mavg_reward) + '\n')
-        #             stats_file.write('var_reward: ' + str(agent.var_reward) + '\n')
-        #             stats_file.write('mavg_score: ' + str(agent.mavg_score) + '\n')
-        #             stats_file.write('var_score: ' + str(agent.var_score) + '\n')
-        #             # stats_file.write('mavg_ammo_left: ' + str(agent.mavg_ammo_left) + '\n')
-        #             # stats_file.write('mavg_kill_counts: ' + str(agent.mavg_kill_counts) + '\n')
+
+            # Save Agent's Performance Statistics
+            if GAME % agent.stats_window_size == 0 and t > agent.observe:
+                print("Update Rolling Statistics")
+                agent.mavg_reward.append(np.mean(np.array(reward_buffer)))
+                agent.var_reward.append(np.var(np.array(reward_buffer)))
+                agent.mavg_steps.append(np.mean(np.array(steps_buffer)))
+                agent.var_steps.append(np.var(np.array(steps_buffer)))
+
+                # Reset rolling stats buffer
+                final_state_buffer, reward_buffer, steps_buffer = [], [], []
+
+                # Write Rolling Statistics to file
+                with open("statistics/c51_ddqn_stats.txt", "w") as stats_file:
+                    stats_file.write('Game: ' + str(GAME) + '\n')
+                    stats_file.write('Max Score: ' + str(max_life) + '\n')
+                    stats_file.write('mavg_reward: ' + str(agent.mavg_reward) + '\n')
+                    stats_file.write('var_reward: ' + str(agent.var_reward) + '\n')
+                    stats_file.write('mavg_steps: ' + str(agent.mavg_steps) + '\n')
+                    stats_file.write('var_steps: ' + str(agent.var_steps) + '\n')

@@ -25,7 +25,7 @@ class C51Agent:
         self.initial_epsilon = 1.0
         self.final_epsilon = 0.0001
         self.batch_size = 32
-        self.observe = 100
+        self.observe = 0
         self.explore = 2000
         self.frame_per_action = 4
         self.update_target_freq = 30
@@ -47,13 +47,11 @@ class C51Agent:
         self.target_model = None
 
         # Performance Statistics
-        self.stats_window_size = 50  # window size for computing rolling statistics
+        self.stats_window_size = 100  # window size for computing rolling statistics
         self.mavg_reward = []  # Moving average of real reward
         self.var_reward = []
-        self.mavg_score = []  # Moving Average of Survival Time
-        self.var_score = []  # Variance of Survival Time
-        self.mavg_ammo_left = []  # Moving Average of Ammo used
-        self.mavg_kill_counts = []  # Moving Average of Kill Counts
+        self.mavg_steps = []  # Moving Average of Survival Time
+        self.var_steps = []  # Variance of Survival Time
         self.total_reward = 0
         self.real_time_plotter = PlotHistogramRT(action_size, num_atoms, ['^', '->', 'v', '<-'])
 
@@ -67,8 +65,8 @@ class C51Agent:
         """
         Get action from model using epsilon-greedy policy
         """
-        if np.random.rand() <= self.epsilon:
-        # if np.random.rand() <= 0:
+        # if np.random.rand() <= self.epsilon:
+        if np.random.rand() <= 0:
             # print("----------Random Action----------")
             action_idx = random.randrange(self.action_size)
         else:
