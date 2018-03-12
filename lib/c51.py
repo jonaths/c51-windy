@@ -25,8 +25,8 @@ class C51Agent:
         self.initial_epsilon = 1.0
         self.final_epsilon = 0.0001
         self.batch_size = 32
-        self.observe = 20
-        self.explore = 100
+        self.observe = 100
+        self.explore = 2000
         self.frame_per_action = 4
         self.update_target_freq = 30
         self.timestep_per_train = 10  # Number of timesteps between training interval
@@ -40,7 +40,7 @@ class C51Agent:
 
         # Create replay memory using deque
         self.memory = deque()
-        self.max_memory = 50000  # number of previous transitions to remember
+        self.max_memory = 500  # number of previous transitions to remember
 
         # Models for value distribution
         self.model = None
@@ -67,8 +67,8 @@ class C51Agent:
         """
         Get action from model using epsilon-greedy policy
         """
-        # if np.random.rand() <= self.epsilon:
-        if np.random.rand() <= 0:
+        if np.random.rand() <= self.epsilon:
+        # if np.random.rand() <= 0:
             # print("----------Random Action----------")
             action_idx = random.randrange(self.action_size)
         else:
@@ -76,13 +76,25 @@ class C51Agent:
 
         return action_idx
 
+    def plot_histogram(self, state, verbose=True):
+        z = self.model.predict(state)  # Return a list [1x51, 1x51, 1x51]
+        z_concat = np.vstack(z)
+        q = np.sum(np.multiply(z_concat, np.array(self.z)),
+                   axis=1)
+        if verbose:
+            print("=q")
+            print(q)
+            action_idx = np.argmax(q)
+            print("=q_arg_max")
+            print(action_idx)
+
+        self.real_time_plotter.update(np.array(self.z), z_concat)
+
     def get_optimal_action(self, state):
         """Get optimal action for a state
         """
         z = self.model.predict(state)  # Return a list [1x51, 1x51, 1x51]
         z_concat = np.vstack(z)
-
-        self.real_time_plotter.update(np.array(self.z), z_concat)
 
         q = np.sum(np.multiply(z_concat, np.array(self.z)), axis=1)
 

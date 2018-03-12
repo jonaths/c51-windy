@@ -9,13 +9,15 @@ class PlotHistogramRT:
     Crea un histograma y lo actualiza cada que se llama update en la misma figura.
     """
 
-    def __init__(self, series_number, bins, label_names, pause=0.01):
+    def __init__(self, series_number, bins, label_names, pause=0.0):
         self.bins = bins
         self.pause = pause
         self.series_number = series_number
         self.width = 0.7
         self.label_names = label_names
-        plt.ion()
+        self.this_fig_num = 20
+        self.fig = plt.figure(self.this_fig_num)
+        plt.show(block=False)
 
     def update(self, new_x, new_y):
         """
@@ -35,13 +37,14 @@ class PlotHistogramRT:
 
         # print np.asarray(new_x).shape
         #
+        fig = plt.figure(self.this_fig_num)
         plt.clf()
-        plt.cla()
         for ind in range(len(new_y)):
             plt.bar(new_x, new_y[ind], width=self.width, label=self.label_names[ind])
         plt.legend()
-        plt.draw()
-        plt.pause(self.pause)
+        fig.canvas.draw()
+        plt.pause(0.00001)
+
 
 
 if __name__ == "__main__":

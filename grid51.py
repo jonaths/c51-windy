@@ -59,7 +59,7 @@ if __name__ == "__main__":
     agent = C51Agent(state_size, action_size, num_atoms)
 
     agent.model = Networks.value_distribution_network(state_size, num_atoms, action_size, agent.learning_rate)
-    agent.load_model("models/c51_ddqn.h5")
+    # agent.load_model("models/c51_ddqn.h5")
     agent.target_model = Networks.value_distribution_network(state_size, num_atoms, action_size, agent.learning_rate)
 
     data = range(img_rows * img_cols)
@@ -67,6 +67,7 @@ if __name__ == "__main__":
     s_t = np.stack(([x_t] * img_channels), axis=0)
     s_t = np.rollaxis(s_t, 0, 3)
     s_t = np.expand_dims(s_t, axis=0)
+    s_t1 = s_t
     # print(s_t)
 
     is_terminated = False
@@ -83,11 +84,14 @@ if __name__ == "__main__":
 
     while not is_terminated:
 
-        sleep(0.1)
+
 
         loss = 0
         r_t = 0
         a_t = np.zeros([action_size])
+
+        env.render()
+        agent.plot_histogram(s_t1)
 
         # Epsilon Greedy
         # action_idx = input("action")
@@ -120,7 +124,6 @@ if __name__ == "__main__":
         # print(s_t1.shape)
         # print(s_t1)
 
-
         r_t = agent.shape_reward(r_t, misc, prev_misc, t, is_terminated)
 
         if is_terminated:
@@ -134,7 +137,7 @@ if __name__ == "__main__":
         # save the sample <s, a, r, s'> to the replay memory and decrease epsilon
         agent.replay_memory(s_t, action_idx, r_t, s_t1, is_terminated, t)
 
-        loss = agent.train_replay()
+        # loss = agent.train_replay()
 
         # Do the training
         if t > agent.observe and t % agent.timestep_per_train == 0:
