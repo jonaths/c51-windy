@@ -52,6 +52,7 @@ class C51Agent:
         self.var_reward = []
         self.mavg_steps = []  # Moving Average of Survival Time
         self.var_steps = []  # Variance of Survival Time
+        self.end_count = []
         self.total_reward = 0
         self.real_time_plotter = PlotHistogramRT(action_size, num_atoms, ['^', '->', 'v', '<-'])
 
@@ -65,8 +66,8 @@ class C51Agent:
         """
         Get action from model using epsilon-greedy policy
         """
-        # if np.random.rand() <= self.epsilon:
-        if np.random.rand() <= 0:
+        if np.random.rand() <= self.epsilon:
+        # if np.random.rand() <= 0:
             # print("----------Random Action----------")
             action_idx = random.randrange(self.action_size)
         else:

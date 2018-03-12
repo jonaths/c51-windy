@@ -88,6 +88,7 @@ if __name__ == "__main__":
         r_t = 0
         a_t = np.zeros([action_size])
 
+        # sleep(0.1)
         # env.render()
         # agent.plot_histogram(s_t1)
 
@@ -102,7 +103,7 @@ if __name__ == "__main__":
             if life > max_life:
                 max_life = life
             GAME += 1
-            final_state_buffer.append(misc['step_seq'][-1])
+            final_state_buffer.append(0 if misc['step_seq'][-1] == 8 else 1)
             steps_buffer.append(len(misc['step_seq']))
             reward_buffer.append(misc['sum_reward'])
             env.reset()
@@ -124,19 +125,17 @@ if __name__ == "__main__":
         # save the sample <s, a, r, s'> to the replay memory and decrease epsilon
         agent.replay_memory(s_t, action_idx, r_t, s_t1, is_terminated, t)
 
-        # loss = agent.train_replay()
-
         # Do the training
-        # if t > agent.observe and t % agent.timestep_per_train == 0:
-        #     loss = agent.train_replay()
+        if t > agent.observe and t % agent.timestep_per_train == 0:
+            loss = agent.train_replay()
 
         s_t = s_t1
         t += 1
 
         # save progress every 10000 iterations
-        # if t % 100 == 0:
-        #     print("Now we save model")
-        #     agent.model.save_weights("models/c51_ddqn.h5", overwrite=True)
+        if t % 100 == 0:
+            print("Now we save model")
+            agent.model.save_weights("models/c51_ddqn.h5", overwrite=True)
 
         # print info
         state = ""
@@ -148,6 +147,7 @@ if __name__ == "__main__":
             state = "train"
 
         if is_terminated:
+
             is_terminated = False
             print("TIME", t, "/ GAME", GAME, "/ STATE", state, \
                   "/ EPSILON", agent.epsilon, "/ ACTION", action_idx, "/ REWARD", r_t, \
@@ -157,9 +157,10 @@ if __name__ == "__main__":
             if GAME % agent.stats_window_size == 0 and t > agent.observe:
                 print("Update Rolling Statistics")
                 agent.mavg_reward.append(np.mean(np.array(reward_buffer)))
-                agent.var_reward.append(np.var(np.array(reward_buffer)))
+                agent.var_reward.append(np.std(np.array(reward_buffer)))
                 agent.mavg_steps.append(np.mean(np.array(steps_buffer)))
-                agent.var_steps.append(np.var(np.array(steps_buffer)))
+                agent.var_steps.append(np.std(np.array(steps_buffer)))
+                agent.end_count.append(np.average(np.array(final_state_buffer)))
 
                 # Reset rolling stats buffer
                 final_state_buffer, reward_buffer, steps_buffer = [], [], []
@@ -172,3 +173,4 @@ if __name__ == "__main__":
                     stats_file.write('var_reward: ' + str(agent.var_reward) + '\n')
                     stats_file.write('mavg_steps: ' + str(agent.mavg_steps) + '\n')
                     stats_file.write('var_steps: ' + str(agent.var_steps) + '\n')
+                    stats_file.write('end_count: ' + str(agent.end_count) + '\n')
