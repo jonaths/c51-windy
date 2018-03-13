@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d8f53bc3-5002-4b2c-9df5-eb98b66e5c7a" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/statistics/c51_ddqn_stats.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/statistics/domain_stats.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/windy_world_environment_behavior.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/windy_world_environment_behavior_less_risky.png" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/models/c51_ddqn.h5" afterPath="$PROJECT_DIR$/models/180313-c51_ddqn.h5" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/c51.py" afterPath="$PROJECT_DIR$/lib/c51.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grid51.py" afterPath="$PROJECT_DIR$/grid51.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -22,11 +16,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="grid51.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="grid51.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grid51.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1518">
-              <caret line="169" column="65" lean-forward="true" selection-start-line="169" selection-start-column="20" selection-end-line="169" selection-end-column="65" />
+            <state relative-caret-position="-672">
+              <caret line="62" column="44" lean-forward="true" selection-start-line="62" selection-start-column="44" selection-end-line="62" selection-end-column="44" />
               <folding>
                 <element signature="e#22#59#0" expanded="true" />
               </folding>
@@ -34,7 +28,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="c51.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="c51.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/c51.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="630">
@@ -74,7 +68,6 @@
         <option value="$PROJECT_DIR$/lib/plot_histogram.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/statistics/c51_ddqn_stats.txt" />
-        <option value="$PROJECT_DIR$/grid51.py" />
         <option value="$PROJECT_DIR$/statistics/domain_stats_bottom.txt" />
         <option value="$PROJECT_DIR$/statistics/domain_stats_middle.txt" />
         <option value="$PROJECT_DIR$/statistics/domain_stats_top.txt" />
@@ -82,6 +75,7 @@
         <option value="$PROJECT_DIR$/statistics/domain_stats.txt" />
         <option value="$PROJECT_DIR$/lib/print_results.py" />
         <option value="$PROJECT_DIR$/lib/c51.py" />
+        <option value="$PROJECT_DIR$/grid51.py" />
       </list>
     </option>
   </component>
@@ -658,21 +652,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/grid51.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-672">
+          <caret line="62" column="44" lean-forward="true" selection-start-line="62" selection-start-column="44" selection-end-line="62" selection-end-column="44" />
+          <folding>
+            <element signature="e#22#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lib/c51.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="630">
           <caret line="54" column="27" lean-forward="true" selection-start-line="54" selection-start-column="27" selection-end-line="54" selection-end-column="27" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grid51.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1518">
-          <caret line="169" column="65" lean-forward="true" selection-start-line="169" selection-start-column="20" selection-end-line="169" selection-end-column="65" />
-          <folding>
-            <element signature="e#22#59#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>

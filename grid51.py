@@ -59,7 +59,7 @@ if __name__ == "__main__":
     agent = C51Agent(state_size, action_size, num_atoms)
 
     agent.model = Networks.value_distribution_network(state_size, num_atoms, action_size, agent.learning_rate)
-    agent.load_model("models/c51_ddqn.h5")
+    # agent.load_model("models/c51_ddqn.h5")
     agent.target_model = Networks.value_distribution_network(state_size, num_atoms, action_size, agent.learning_rate)
 
     data = range(img_rows * img_cols)
