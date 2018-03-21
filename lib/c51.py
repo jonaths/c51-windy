@@ -25,11 +25,11 @@ class C51Agent:
         self.initial_epsilon = 1.0
         self.final_epsilon = 0.0001
         self.batch_size = 32
-        self.observe = 200
-        self.explore = 5000
+        self.observe = 2000
+        self.explore = 20000
         self.frame_per_action = 4
         self.update_target_freq = 30
-        self.timestep_per_train = 10  # Number of timesteps between training interval
+        self.timestep_per_train = 100  # Number of timesteps between training interval
 
         # Initialize Atoms
         self.num_atoms = num_atoms  # 51 for C51

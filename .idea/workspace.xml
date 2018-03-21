@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d8f53bc3-5002-4b2c-9df5-eb98b66e5c7a" name="Default" comment="">
+    <list default="true" id="d8f53bc3-5002-4b2c-9df5-eb98b66e5c7a" name="Default" comment="Prueba base antes de cambiar parametros.">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/models/180316-c51_ddqn.h5" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/models/180319-c51_ddqn.h5" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/statistics/c51_ddqn_stats.txt" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/c51_ddqn.h5" afterPath="$PROJECT_DIR$/models/c51_ddqn.h5" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grid51.py" afterPath="$PROJECT_DIR$/grid51.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/c51.py" afterPath="$PROJECT_DIR$/lib/c51.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/networks.py" afterPath="$PROJECT_DIR$/lib/networks.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/plot_histogram.py" afterPath="$PROJECT_DIR$/lib/plot_histogram.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/print_results.py" afterPath="$PROJECT_DIR$/lib/print_results.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test.py" afterPath="$PROJECT_DIR$/test.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -13,32 +23,66 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/ai_grid$test.coverage" NAME="test Coverage Results" MODIFIED="1520606776498" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ai_grid$print_results.coverage" NAME="print_results Coverage Results" MODIFIED="1521624632807" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lib" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="ai-grid" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="grid51.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grid51.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-672">
-              <caret line="62" column="44" lean-forward="true" selection-start-line="62" selection-start-column="44" selection-end-line="62" selection-end-column="44" />
-              <folding>
-                <element signature="e#22#59#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="c51.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/c51.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
-              <caret line="54" column="27" lean-forward="true" selection-start-line="54" selection-start-column="27" selection-end-line="54" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.44915825">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="grid51.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/grid51.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="125">
+                  <caret line="62" column="24" lean-forward="false" selection-start-line="62" selection-start-column="24" selection-end-line="62" selection-end-column="24" />
+                  <folding>
+                    <element signature="e#22#59#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="test.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/test.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="75">
+                  <caret line="28" column="16" lean-forward="true" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="16" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="c51.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/lib/c51.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="195">
+                  <caret line="88" column="0" lean-forward="true" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+                  <folding>
+                    <element signature="e#22#59#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="print_results.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/lib/print_results.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="90">
+                  <caret line="7" column="10" lean-forward="false" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -51,6 +95,7 @@
     <findStrings>
       <find>render</find>
       <find>:</find>
+      <find>ard\: \[\-7\.15\, \-7\.14\, \-6\.78\, \-6\.83\, \-7\.17\, \-7\.12\, \-7\.11\, \-7\.23\, \-5\.71\, \-6\.58\, \-6\.87\, \-6\.96\, \-6\.97\, \-7\.18\, \-7\.09\, \-6\.56\, \-6\.99\, \-6\.47\, \-6\.65\, \-6\.19\, \-6\.64\, \-6\.25\, \-6\.3\, \-6\.42\, \-5\.94\, \-5\.87\, \-5\.91\, \-6\.03\, \-6\.02\, \-5\.63\, \-6\.0\, \-6\.06\, \-5\.76\, \-5\.66\, \-5\.69\, \-5\.87\, \-5\.87\, \-6\.14\, \-5\.61\, \-5\.51\, \-5\.64\, \-5\.61\, \-5\.47\, \-5\.85\, \-6\.08\, \-5\.96\, \-5\.68\, \-5\.46\, \-5\.68\, \-5\.56\, \-5\.03\, \-5\.52\, \-5\.84\, \-5\.0\, \-5\.99\, \-5\.36\, \-5\.63\, \-5\.5\, \-5\.33\, \-5\.63\, \-5\.4\, \-6\.77\, \-5\.58\, \-5\.51\, \-5\.24\, \-6\.21\, \-5\.91\, \-5\.24\, \-5\.77\, \-5\.95\, \-5\.95\, \-5\.38\, \-5\.99\, \-5\.58\, \-5\.4\, \-5\.67\, \-5\.42\, \-5\.51\, \-4\.92\, \-5\.38\, \-5\.41\, \-5\.08\, \-4\.91\, \-4\.87\, \-4\.73\, \-4\.21\, \-4\.5\, \-4\.92\, \-4\.27\, \-5\.65\, \-4\.67\, \-4\.97\, \-3\.45\, \-4\.56\, \-5\.05\, \-4\.83\, \-6\.06\, \-4\.32\, \-4\.29\, \-4\.24\, \-5\.03\, \-4\.82\, \-4\.93\, \-4\.08\, \-3\.54\, \-3\.28\, \-5\.04\, \-4\.62\, \-4\.57\, \-4\.69\, \-4\.87\, \-4\.38\, \-4\.5\, \-4\.28\, \-5\.11\, \-4\.16\, \-3\.39\, \-4\.03\, \-4\.1\, \-3\.81\, \-4\.97\, \-3\.68\, \-2\.82\, \-4\.53\, \-5\.02\, \-4\.28\, \-4\.3\, \-4\.31\, \-3\.41\, \-4\.25\, \-4\.82\, \-4\.37\, \-4\.55\, \-3\.72\, \-2\.61\, \-5\.84\, \-4\.54\, \-3\.93\, \-4\.67\, \-3\.13\, \-5\.0\, \-4\.13\, \-4\.08\, \-3\.98\, \-3\.82\, \-3\.9\, \-3\.47\, \-4\.97\, \-5\.3\, \-4\.74\, \-4\.01\, \-3\.98\, \-3\.41\, \-3\.91\, \-4\.3\, \-3\.02\, \-4\.14\, \-4\.1\, \-4\.15\, \-6\.28\, \-1\.84\, \-4\.5\, \-3\.84\, \-4\.68\, \-4\.01\, \-4\.0\, \-4\.06\, \-3\.55\, \-2\.68\, \-5\.0\, \-4\.28\, \-4\.0\, \-4\.0\, \-5\.24\, \-6\.37\, \-4\.0\, \-4\.0\, \-4\.0\, \-4\.0\, \-4\.34\, \-3\.52\, \-4\.0\, \-4\.0\, \-2\.13\, \-2\.64\, \-4\.42\, \-4\.0\, \-4\.0\, \-4\.0\, \-4\.0\, \-2\.64\, \-2\.05\, \-4\.17\, \-4\.0\, \-4\.0\, \-4\.0\, \-4\.0\, \-5\.1\]\nvar_reward\: \[3\.1666228067138023\, 3\.085514543799786\, 2\.9650632370996743\, 2\.642177132593498\, 3\.072637303685549\, 2\.892334697091607\, 2\.979580507386904\, 2\.8349779540589024\, 2\.616467083683645\, 2\.7465614866592736\, 2\.9279856557025687\, 3\.3820703718284757\, 3\.0015162834807345\, 2\.8892213483912923\, 2\.7095940655382313\, 3\.0669854906732112\, 2\.840756941380237\, 2\.7035347232835756\, 2\.854382595238417\, 2\.8414608918653097\, 2\.8408449447303523\, 2\.4753787588973126\, 2\.8653097563788807\, 2\.825526499610294\, 2\.9285491288349594\, 2\.559902341887284\, 2\.7752297202213727\, 2\.511792188856395\, 2\.521824736178151\, 2\.8307419522097024\, 2\.5099800796022267\, 2\.610823624835657\, 2\.51443830705786\, 2\.392571838001944\, 2\.644598268168532\, 2\.4724684022247887\, 2\.2389953104015206\, 2\.860139856720297\, 2\.752798575994982\, 2\.487950964147003\, 2\.598153190248797\, 2\.645354418598763\, 2\.455422570556848\, 2\.5233905761891084\, 2\.4685218248984557\, 2\.5648391762447798\, 2\.3743630724891256\, 2\.8157414654048054\, 2\.5529590674352773\, 2\.3804201309852844\, 2\.9341267866266443\, 2\.2868318696397427\, 2\.591215930793881\, 2\.3916521486202797\, 2\.666439573663727\, 2\.475964458549435\, 2\.74100346588617\, 2\.7549954627911823\, 2\.227352688731625\, 2\.8094661414581954\, 2\.280350850198276\, 2\.595592417926975\, 2\.8919889349719163\, 2\.7073788061518096\, 2\.6386360112755223\, 3\.3802218862080635\, 2\.396226199673144\, 2\.2544178849538965\, 3\.0654689690159973\, 2\.620591536275732\, 2\.7143139096279927\, 2\.704736586065268\, 2\.9748781487650886\, 2\.661503334583671\, 2\.3409399821439254\, 3\.175074802268444\, 2\.909226701376158\, 2\.443337880850702\, 1\.9374209661299737\, 3\.0944466387385\, 3\.2987724989759446\, 2\.1572204337990124\, 2\.209502206380433\, 3\.0254090632507866\, 3\.4317779648456277\, 3\.70484817502688\, 2\.2203603311174516\, 2\.6483202223296187\, 4\.073953853445078\, 3\.0277879714405365\, 1\.6973803345155143\, 2\.632318369802559\, 4\.033298897924626\, 3\.001066477104431\, 1\.7853571071357128\, 2\.0978798821667555\, 2\.8699128906641054\, 3\.437673631978464\, 1\.9559907975243647\, 2\.3243063481391597\, 2\.414352915379191\, 3\.395231950839294\, 2\.4093775129688586\, 3\.1517614122899595\, 4\.141062665548543\, 3\.4411625942404984\, 1\.9794948850653793\, 2\.217115242832451\, 2\.881857040173922\, 3\.8928010480886384\, 2\.0864083972223657\, 1\.2552290627610565\, 2\.463736998950984\, 3\.3647585351700955\, 1\.3703649149040558\, 2\.7702707448911923\, 4\.046961823392952\, 1\.1441590798486023\, 1\.0049875621120894\, 1\.973296733894829\, 3\.9050096030611754\, 4\.440450427603038\, 4\.005945581257938\, 2\.8476481524233295\, 1\.4763468427168458\, 0\.8133879763065103\, 0\.8660254037844387\, 1\.2545517127643642\, 4\.002736563902251\, 4\.271709259769443\, 2\.251133048044917\, 1\.2857293649909376\, 1\.6332482971061075\, 3\.7525458025186054\, 3\.580209491077302\, 2\.1712669112755343\, 1\.2682271089990151\, 3\.4907162588786838\, 2\.049658508142271\, 3\.785908081293047\, 1\.7435595774162693\, 0\.5595533933415112\, 0\.9765244492586963\, 0\.8715503427800371\, 1\.2278436382536666\, 4\.519955751995808\, 3\.6700272478552534\, 1\.7231076576929254\, 2\.202271554554524\, 1\.9422667170087635\, 1\.252956503634504\, 0\.999799979995999\, 2\.2049716551466143\, 5\.006186173126205\, 2\.5119713374160946\, 2\.7165419194262395\, 0\.7485986908885159\, 0\.5\, 0\.6538348415311012\, 2\.054653255418052\, 4\.638361779766645\, 0\.8774964387392122\, 1\.1199999999999999\, 2\.4202479211849353\, 1\.0629675441893796\, 0\.0\, 0\.596992462263972\, 3\.855839726959615\, 3\.2768277342576315\, 1\.0\, 0\.6939740629158989\, 0\.0\, 0\.0\, 0\.9393614852653904\, 3\.148507582966889\, 0\.0\, 0\.0\, 0\.0\, 0\.0\, 3\.7395721680427565\, 1\.8998947339260668\, 0\.0\, 0\.0\, 3\.3216110548948983\, 3\.785551478978988\, 0\.814616474176652\, 0\.0\, 0\.0\, 0\.0\, 0\.0\, 4\.914305647800104\, 4\.355169342287393\, 2\.4861818115335006\, 0\.0\, 0\.0\, 0\.0\, 0\.0\, 1\.8411952639521965\]\nmavg_steps\: \[5\.26\, 5\.2\, 4\.6\, 4\.62\, 5\.16\, 4\.94\, 5\.05\, 5\.1\, 3\.39\, 4\.35\, 4\.88\, 4\.96\, 4\.74\, 4\.98\, 4\.92\, 4\.38\, 4\.79\, 4\.04\, 4\.36\, 3\.86\, 4\.35\, 3\.61\, 4\.05\, 4\.12\, 3\.77\, 3\.4\, 3\.72\, 3\.56\, 3\.64\, 3\.34\, 3\.42\, 3\.45\, 3\.43\, 3\.07\, 3\.07\, 3\.2\, 3\.08\, 3\.84\, 3\.01\, 3\.01\, 3\.27\, 3\.22\, 2\.79\, 3\.32\, 3\.44\, 3\.6\, 3\.21\, 3\.14\, 3\.15\, 2\.97\, 3\.02\, 2\.89\, 3\.31\, 2\.66\, 3\.43\, 2\.93\, 3\.06\, 3\.22\, 2\.71\, 3\.52\, 2\.89\, 4\.64\, 3\.67\, 3\.25\, 3\.12\, 4\.21\, 3\.3\, 2\.82\, 3\.55\, 3\.68\, 3\.59\, 3\.13\, 3\.86\, 3\.6\, 2\.89\, 3\.69\, 3\.89\, 3\.12\, 2\.18\, 3\.65\, 3\.99\, 2\.39\, 2\.45\, 2\.85\, 3\.22\, 3\.29\, 1\.97\, 2\.9\, 3\.44\, 3\.53\, 1\.9\, 3\.03\, 3\.0\, 2\.78\, 2\.14\, 2\.14\, 4\.15\, 3\.46\, 1\.65\, 2\.04\, 2\.56\, 3\.08\, 2\.58\, 2\.57\, 3\.17\, 2\.38\, 2\.25\, 2\.09\, 2\.48\, 3\.74\, 2\.33\, 1\.58\, 2\.37\, 3\.11\, 2\.25\, 2\.59\, 3\.33\, 1\.28\, 1\.21\, 1\.47\, 3\.74\, 3\.35\, 2\.81\, 2\.81\, 2\.13\, 1\.28\, 1\.3\, 1\.42\, 2\.86\, 3\.74\, 2\.29\, 1\.4\, 1\.73\, 2\.86\, 2\.53\, 3\.02\, 1\.6\, 2\.77\, 2\.11\, 3\.39\, 2\.22\, 1\.13\, 1\.19\, 1\.09\, 1\.15\, 4\.03\, 2\.62\, 2\.22\, 2\.81\, 2\.12\, 1\.26\, 1\.12\, 1\.29\, 4\.35\, 2\.18\, 1\.81\, 1\.17\, 1\.1\, 1\.15\, 3\.75\, 3\.08\, 1\.5\, 1\.06\, 2\.32\, 1\.12\, 1\.0\, 1\.09\, 4\.0\, 2\.32\, 2\.0\, 1\.28\, 1\.0\, 1\.0\, 2\.24\, 4\.65\, 1\.0\, 1\.0\, 1\.0\, 1\.0\, 3\.14\, 1\.18\, 1\.0\, 1\.0\, 2\.32\, 2\.94\, 1\.42\, 1\.0\, 1\.0\, 1\.0\, 1\.0\, 3\.7\, 3\.06\, 2\.26\, 1\.0\, 1\.0\, 1\.0\, 1\.0\, 2\.4\]\nvar_steps\: \[3\.748653091444979\, 3\.757658845611187\, 3\.3852621759621515\, 3\.428644046850008\, 3\.5853033344474494\, 3\.5911558028022124\, 3\.658893275295141\, 3\.8353617821530213\, 2\.9963144027287925\, 3\.6038174204584785\, 3\.834788129740677\, 3\.3073252032420393\, 3\.692208011474976\, 3\.7066966425646437\, 3\.6185079798170956\, 3\.6187843262620665\, 3\.6504657237125238\, 3\.566286584109583\, 3\.6346113960092077\, 3\.3496865525000987\, 3\.5647580563062067\, 3\.126963383220213\, 3\.222964473896664\, 3\.4271854341427166\, 3\.208909472079261\, 3\.304542328371661\, 3\.355830746625938\, 3\.30853441874193\, 3\.284874426823649\, 2\.967220922007662\, 3\.2777431259938594\, 3\.3026504507743475\, 3\.238070413070105\, 2\.9300341294940573\, 3\.118509259245513\, 3\.117691453623979\, 2\.708062037694115\, 3\.448825887167979\, 2\.858303692752049\, 3\.119278762791168\, 3\.0194535929535333\, 3\.0678331114974293\, 2\.833001941404206\, 3\.1492221261765576\, 3\.1410826159144563\, 3\.190611226708764\, 3\.1250439996902446\, 2\.9766424037831616\, 3\.128498042192131\, 3\.008172202517668\, 3\.036379422931199\, 2\.5373017163908593\, 3\.135904973050044\, 2\.8538395189638814\, 3\.092749585724651\, 2\.702794849780501\, 2\.9759704299606202\, 3\.090566291151186\, 2\.7433373835531056\, 3\.3420951512486896\, 2\.6828902325663644\, 3\.7696684204316964\, 3\.3913271738362254\, 3\.0079062485390065\, 2\.9369371801249002\, 3\.3653974505249744\, 3\.1543620591175006\, 3\.0244999586708543\, 3\.3357907608241857\, 3\.4025872509018775\, 3\.3796301572805274\, 3\.1611864861156165\, 3\.361606758679545\, 3\.0166206257996713\, 2\.8527004749885676\, 3\.288449482658963\, 3\.4114366475137716\, 3\.0992902413294563\, 2\.2153103620034824\, 3\.1060424980994705\, 3\.401455570781427\, 2\.0341828826337123\, 2\.662235902394827\, 2\.7870235018743568\, 3\.116344011818977\, 2\.79748100976575\, 1\.9516915739942107\, 2\.896549671592048\, 2\.9165733318399525\, 3\.2479378072863407\, 1\.9416487838947598\, 3\.086924035346513\, 2\.6115129714401193\, 2\.304690868641606\, 2\.0833626664601628\, 2\.168040590025934\, 3\.6616253221759325\, 3\.0965141691908986\, 1\.6515144564913744\, 1\.9022092419079455\, 2\.4548727054574537\, 2\.841408101628487\, 2\.3587284710199263\, 2\.2282504347581757\, 2\.922516039305858\, 2\.2350838910430184\, 2\.56661255354212\, 1\.9188277671536857\, 1\.9518196638009362\, 3\.5316285195359938\, 2\.835683339161833\, 1\.7503142574977786\, 2\.5046157389907138\, 2\.708855847032101\, 1\.5960889699512368\, 2\.2004317758112837\, 3\.0001833277318233\, 1\.208966500776593\, 0\.6526101439603893\, 1\.1353853971229328\, 3\.186283101044224\, 3\.0409702399069944\, 2\.6634376283292243\, 2\.4604674352650964\, 1\.1802965729002182\, 0\.8133879763065102\, 0\.8660254037844387\, 0\.9713907555664713\, 2\.424953607803663\, 3\.31246132052889\, 1\.663099515964093\, 1\.4422205101855956\, 2\.266517151931571\, 2\.7568822970885063\, 2\.2246572769754898\, 2\.592219126540039\, 1\.562049935181331\, 3\.0260700586734606\, 2\.8351190451196224\, 2\.7309155973775536\, 1\.5269577597301112\, 0\.5595533933415112\, 0\.6114736298484177\, 0\.4493328387732194\, 0\.7262919523166976\, 3\.5283282160252614\, 1\.701646261712463\, 1\.4871449156017043\, 2\.373583788283026\, 2\.728662676110772\, 1\.136837719289785\, 0\.9410632284814868\, 0\.8519976525789258\, 3\.5252659474144643\, 1\.2196720870791462\, 1\.68934898703613\, 1\.0005498488331301\, 0\.5\, 0\.6538348415311012\, 2\.67348087705897\, 1\.5144636014114041\, 0\.8774964387392122\, 0\.42\, 3\.126915412990892\, 0\.8863407922464136\, 0\.0\, 0\.895488693395958\, 3\.566510900025402\, 1\.6785708206685828\, 1\.0\, 0\.6939740629158989\, 0\.0\, 0\.0\, 0\.9393614852653904\, 4\.38263619297792\, 0\.0\, 0\.0\, 0\.0\, 0\.0\, 3\.181257612957492\, 0\.712460525222275\, 0\.0\, 0\.0\, 1\.7937669859822931\, 1\.5863164879682743\, 0\.814616474176652\, 0\.0\, 0\.0\, 0\.0\, 0\.0\, 3\.312099032335839\, 2\.759782600133568\, 2\.6253380734678724\, 0\.0\, 0\.0\, 0\.0\, 0\.0\, 2\.6720778431774774\]\nend_count\: \[</find>
     </findStrings>
     <replaceStrings>
       <replace>=</replace>
@@ -64,17 +109,17 @@
       <list>
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/c51_ddqn.py" />
-        <option value="$PROJECT_DIR$/lib/networks.py" />
-        <option value="$PROJECT_DIR$/lib/plot_histogram.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/statistics/c51_ddqn_stats.txt" />
         <option value="$PROJECT_DIR$/statistics/domain_stats_bottom.txt" />
         <option value="$PROJECT_DIR$/statistics/domain_stats_middle.txt" />
         <option value="$PROJECT_DIR$/statistics/domain_stats_top.txt" />
-        <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/statistics/domain_stats.txt" />
-        <option value="$PROJECT_DIR$/lib/print_results.py" />
+        <option value="$PROJECT_DIR$/lib/plot_histogram.py" />
+        <option value="$PROJECT_DIR$/test.py" />
+        <option value="$PROJECT_DIR$/lib/networks.py" />
         <option value="$PROJECT_DIR$/lib/c51.py" />
+        <option value="$PROJECT_DIR$/statistics/c51_ddqn_stats.txt" />
+        <option value="$PROJECT_DIR$/lib/print_results.py" />
         <option value="$PROJECT_DIR$/grid51.py" />
       </list>
     </option>
@@ -86,10 +131,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1750" />
-    <option name="y" value="171" />
-    <option name="width" value="1366" />
-    <option name="height" value="772" />
+    <option name="x" value="1366" />
+    <option name="y" value="-4" />
+    <option name="width" value="1920" />
+    <option name="height" value="1084" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -107,6 +152,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -137,8 +184,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -167,7 +212,25 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.test">
+  <component name="RunManager" selected="Python.print_results">
+    <configuration name="print_results" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/lib" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="ai-grid" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/lib/print_results.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
     <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -186,9 +249,14 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="Python.test" />
+      <item index="1" class="java.lang.String" itemvalue="Python.print_results" />
+    </list>
     <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Python.test" />
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="Python.print_results" />
+        <item index="1" class="java.lang.String" itemvalue="Python.test" />
       </list>
     </recent_temporary>
   </component>
@@ -212,16 +280,16 @@
     <frame x="1366" y="-4" width="1920" height="1084" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19263607" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18516542" sideWeight="0.49455675" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3291536" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32879582" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18333334" sideWeight="0.5054432" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -260,8 +328,20 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Prueba base antes de cambiar parametros." />
+    <option name="LAST_COMMIT_MESSAGE" value="Prueba base antes de cambiar parametros." />
+  </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/grid51.py</url>
+          <line>22</line>
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
@@ -269,9 +349,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="55" column="22" lean-forward="false" selection-start-line="55" selection-start-column="22" selection-end-line="55" selection-end-column="22" />
-          <folding>
-            <element signature="e#22#59#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -289,9 +366,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="630">
           <caret line="43" column="29" lean-forward="true" selection-start-line="43" selection-start-column="8" selection-end-line="43" selection-end-column="29" />
-          <folding>
-            <element signature="e#23#41#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -300,7 +374,7 @@
         <state relative-caret-position="150">
           <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
           <folding>
-            <element signature="e#22#59#0" expanded="true" />
+            <element signature="e#22#59#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -309,9 +383,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="18" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -319,7 +390,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1200">
           <caret line="89" column="33" lean-forward="false" selection-start-line="89" selection-start-column="33" selection-end-line="89" selection-end-column="33" />
-          <folding />
+          <folding>
+            <element signature="e#22#59#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -351,9 +424,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="55" column="22" lean-forward="false" selection-start-line="55" selection-start-column="22" selection-end-line="55" selection-end-column="22" />
-          <folding>
-            <element signature="e#22#59#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -362,7 +432,7 @@
         <state relative-caret-position="495">
           <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
           <folding>
-            <element signature="e#22#59#0" expanded="true" />
+            <element signature="e#22#59#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -371,9 +441,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="33" column="16" lean-forward="true" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -381,9 +448,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="675">
           <caret line="45" column="25" lean-forward="false" selection-start-line="45" selection-start-column="18" selection-end-line="45" selection-end-column="25" />
-          <folding>
-            <element signature="e#23#41#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -391,7 +455,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1305">
           <caret line="28" column="24" lean-forward="false" selection-start-line="28" selection-start-column="24" selection-end-line="28" selection-end-column="24" />
-          <folding />
+          <folding>
+            <element signature="e#22#59#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -416,9 +482,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="55" column="22" lean-forward="false" selection-start-line="55" selection-start-column="22" selection-end-line="55" selection-end-column="22" />
-          <folding>
-            <element signature="e#22#59#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -436,7 +499,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1200">
           <caret line="89" column="33" lean-forward="false" selection-start-line="89" selection-start-column="33" selection-end-line="89" selection-end-column="33" />
-          <folding />
+          <folding>
+            <element signature="e#22#59#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -444,9 +509,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="630">
           <caret line="43" column="29" lean-forward="false" selection-start-line="43" selection-start-column="8" selection-end-line="43" selection-end-column="29" />
-          <folding>
-            <element signature="e#23#41#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -455,7 +517,7 @@
         <state relative-caret-position="150">
           <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
           <folding>
-            <element signature="e#22#59#0" expanded="true" />
+            <element signature="e#22#59#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -464,9 +526,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="14" column="14" lean-forward="true" selection-start-line="14" selection-start-column="14" selection-end-line="14" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -474,9 +533,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="55" column="22" lean-forward="false" selection-start-line="55" selection-start-column="22" selection-end-line="55" selection-end-column="22" />
-          <folding>
-            <element signature="e#22#59#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -494,9 +550,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="630">
           <caret line="43" column="29" lean-forward="true" selection-start-line="43" selection-start-column="8" selection-end-line="43" selection-end-column="29" />
-          <folding>
-            <element signature="e#23#41#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -505,7 +558,7 @@
         <state relative-caret-position="150">
           <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
           <folding>
-            <element signature="e#22#59#0" expanded="true" />
+            <element signature="e#22#59#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -514,9 +567,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="18" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -524,7 +574,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1200">
           <caret line="89" column="33" lean-forward="false" selection-start-line="89" selection-start-column="33" selection-end-line="89" selection-end-column="33" />
-          <folding />
+          <folding>
+            <element signature="e#22#59#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -552,121 +604,82 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test.png" />
+    <entry file="file://$PROJECT_DIR$/statistics/domain_stats_top.txt" />
+    <entry file="file://$PROJECT_DIR$/statistics/domain_stats_bottom.txt" />
+    <entry file="file://$PROJECT_DIR$/statistics/domain_stats_middle.txt" />
+    <entry file="file://$PROJECT_DIR$/statistics/domain_stats.txt" />
+    <entry file="file://$PROJECT_DIR$/windy_world_environment_behavior.png" />
+    <entry file="file://$PROJECT_DIR$/c51_ddqn.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="55" column="22" lean-forward="false" selection-start-line="55" selection-start-column="22" selection-end-line="55" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="943">
-          <caret line="104" column="0" lean-forward="true" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
+        <state relative-caret-position="31">
+          <caret line="67" column="0" lean-forward="true" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/plot_histogram.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="586">
+          <caret line="49" column="25" lean-forward="false" selection-start-line="49" selection-start-column="25" selection-end-line="49" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="28" column="16" lean-forward="true" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/networks.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="53" column="20" lean-forward="false" selection-start-line="53" selection-start-column="20" selection-end-line="53" selection-end-column="20" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/statistics/c51_ddqn_stats.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <caret line="7" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/plot_histogram.py">
+    <entry file="file://$PROJECT_DIR$/lib/c51.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="633">
-          <caret line="45" column="25" lean-forward="false" selection-start-line="45" selection-start-column="18" selection-end-line="45" selection-end-column="25" />
-          <folding>
-            <element signature="e#23#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/statistics/domain_stats_top.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/statistics/domain_stats_bottom.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/statistics/domain_stats_middle.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/print_results.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="29" lean-forward="false" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/statistics/domain_stats.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/windy_world_environment_behavior.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/networks.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+        <state relative-caret-position="195">
+          <caret line="88" column="0" lean-forward="true" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
           <folding>
             <element signature="e#22#59#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/c51_ddqn.py">
+    <entry file="file://$PROJECT_DIR$/lib/print_results.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="55" column="22" lean-forward="false" selection-start-line="55" selection-start-column="22" selection-end-line="55" selection-end-column="22" />
+        <state relative-caret-position="90">
+          <caret line="7" column="10" lean-forward="false" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grid51.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-672">
-          <caret line="62" column="44" lean-forward="true" selection-start-line="62" selection-start-column="44" selection-end-line="62" selection-end-column="44" />
+        <state relative-caret-position="125">
+          <caret line="62" column="24" lean-forward="false" selection-start-line="62" selection-start-column="24" selection-end-line="62" selection-end-column="24" />
           <folding>
             <element signature="e#22#59#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/c51.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="54" column="27" lean-forward="true" selection-start-line="54" selection-start-column="27" selection-end-line="54" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>

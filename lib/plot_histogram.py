@@ -39,12 +39,50 @@ class PlotHistogramRT:
         #
         fig = plt.figure(self.this_fig_num)
         plt.clf()
+
+        plt.subplot(3, 1, 1)
         for ind in range(len(new_y)):
             plt.bar(new_x, new_y[ind], width=self.width, label=self.label_names[ind])
+
+        plt.subplot(3, 1, 2)
+        for ind in range(len(new_y)):
+            plt.plot(new_x, np.cumsum(new_y[ind]),
+                    label=self.label_names[ind])
+        plt.grid(True)
         plt.legend()
+
+        plt.subplot(3, 1, 3)
+        for ind in range(len(new_y)):
+            plt.plot(new_x, np.cumsum(np.multiply(new_x, new_y[ind])),
+                     label=self.label_names[ind])
+        plt.grid(True)
+
+
         fig.canvas.draw()
         plt.pause(0.00001)
 
+# plt.subplot(3, 1, 1)
+# plt.plot(t, mavg_reward)
+# # plt.plot(t, middle_mavg_reward)
+# # plt.plot(t, bottom_mavg_reward)
+# plt.title('Windyworld Environment behavior per 1000 episodes')
+# plt.ylabel('Average reward')
+#
+# plt.subplot(3, 1, 2)
+# plt.plot(t, mavg_steps)
+# # plt.plot(t, middle_mavg_steps)
+# # plt.plot(t, bottom_mavg_steps)
+# plt.ylabel('Average steps')
+#
+# plt.subplot(3, 1, 3)
+# plt.plot(t, end_count, label='learned')
+# # plt.plot(t, middle_end_count, label='middle')
+# # plt.plot(t, bottom_end_count, label='bottom')
+# plt.xlabel('Episodes x 100')
+# plt.ylabel('Average failure')
+#
+# plt.legend()
+# plt.show()
 
 
 if __name__ == "__main__":
