@@ -29,11 +29,11 @@ class C51Agent:
         self.explore = 30000
         self.frame_per_action = 4
         self.update_target_freq = 1000
-        self.timestep_per_train = 100  # Number of timesteps between training interval
+        self.timestep_per_train = 200  # Number of timesteps between training interval
 
         # Initialize Atoms
         self.num_atoms = num_atoms  # 51 for C51
-        self.v_max = 12  # Max possible score for Defend the center is 26 - 0.1*26 = 23.4
+        self.v_max = 16  # Max possible score for Defend the center is 26 - 0.1*26 = 23.4
         self.v_min = -8  # -0.1*26 - 1 = -3.6
         self.delta_z = (self.v_max - self.v_min) / float(self.num_atoms - 1)
         self.z = [self.v_min + i * self.delta_z for i in range(self.num_atoms)]
