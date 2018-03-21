@@ -168,9 +168,9 @@ if __name__ == "__main__":
                 # Write Rolling Statistics to file
                 with open("statistics/c51_ddqn_stats.txt", "w") as stats_file:
                     stats_file.write('Game: ' + str(GAME) + '\n')
-                    stats_file.write('Max Score: ' + str(max_life) + '\n')
-                    stats_file.write('mavg_reward: ' + str(agent.mavg_reward) + '\n')
-                    stats_file.write('var_reward: ' + str(agent.var_reward) + '\n')
-                    stats_file.write('mavg_steps: ' + str(agent.mavg_steps) + '\n')
-                    stats_file.write('var_steps: ' + str(agent.var_steps) + '\n')
-                    stats_file.write('end_count: ' + str(agent.end_count) + '\n')
+                    stats_file.write('Max Score= ' + str(max_life) + '\n')
+                    stats_file.write('mavg_reward= ' + str(agent.mavg_reward) + '\n')
+                    stats_file.write('var_reward= ' + str(agent.var_reward) + '\n')
+                    stats_file.write('mavg_steps= ' + str(agent.mavg_steps) + '\n')
+                    stats_file.write('var_steps= ' + str(agent.var_steps) + '\n')
+                    stats_file.write('end_count= ' + str(agent.end_count) + '\n')
