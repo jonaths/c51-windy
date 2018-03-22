@@ -1,22 +1,15 @@
 #!/usr/bin/env python
 from __future__ import print_function
 
-import skimage as skimage
 import numpy as np
-from numpy import array
-from numpy import argmax
+import skimage as skimage
+import tensorflow as tf
 from keras import backend as K
 from keras.utils import to_categorical
 
-from vizdoom import DoomGame, ScreenResolution
-from vizdoom import *
-from time import sleep
-import tensorflow as tf
-import sys
-
 from lib.c51 import C51Agent
+
 from lib.networks import Networks
-from time import sleep
 
 import gym
 import gym_windy
@@ -33,6 +26,9 @@ def preprocessImg(img, size):
 
 
 class C51GridAgent:
+    """
+    Un agente que usa c51 para resolver un windy world de 3 x 3
+    """
 
     def __init__(self):
         # Avoid Tensorflow eats up GPU memory
@@ -94,6 +90,11 @@ class C51GridAgent:
         self.final_state_buffer, self.reward_buffer, self.steps_buffer = [], [], []
 
     def run_episode(self):
+        """
+        Corre un episodio hasta que ai-gym regresa una bandera done=True.
+        En ese momento se setea is_finished y se guardan estadisticas.
+        :return:
+        """
 
         self.loss = 0
         self.r_t = 0
@@ -218,6 +219,10 @@ class C51GridAgent:
 
 
 def run_all():
+    """
+    El programa original.
+    :return:
+    """
     # Avoid Tensorflow eats up GPU memory
     config = tf.ConfigProto()
     config.gpu_options.allow_growth = True
