@@ -6,6 +6,7 @@ import skimage as skimage
 import tensorflow as tf
 from keras import backend as K
 from keras.utils import to_categorical
+import sys
 
 from lib.c51 import C51Agent
 
@@ -51,8 +52,7 @@ class C51GridAgent:
         # C51
         self.num_atoms = 51
 
-        self.state_size = (
-            self.img_rows, self.img_cols, self.img_channels)
+        self.state_size = (self.img_rows, self.img_cols, self.img_channels)
         self.agent = C51Agent(self.state_size, self.action_size, self.num_atoms)
 
         self.agent.model = Networks.value_distribution_network(
@@ -66,9 +66,7 @@ class C51GridAgent:
             self.agent.learning_rate)
 
         self.data = range(self.img_rows * self.img_cols)
-        self.x_t = np.reshape(to_categorical(self.data)[0],
-                              (
-                                  self.img_rows, self.img_cols))
+        self.x_t = np.reshape(to_categorical(self.data)[0], (self.img_rows, self.img_cols))
         self.s_t = np.stack(
             ([self.x_t] * self.img_channels), axis=0)
         self.s_t = np.rollaxis(self.s_t, 0, 3)
@@ -106,10 +104,9 @@ class C51GridAgent:
 
         # Epsilon Greedy
         self.action_idx = input("action")
-        # action_idx = agent.get_action(self.s_t)
+        # self.action_idx = self.agent.get_action(self.s_t)
         self.a_t[self.action_idx] = 1
-        self.obs, self.r_t, self.done, self.misc = self.env.step(
-            self.action_idx)
+        self.obs, self.r_t, self.done, self.misc = self.env.step(self.action_idx)
         self.is_terminated = self.done
 
         if self.is_terminated:
@@ -138,11 +135,11 @@ class C51GridAgent:
         else:
             self.life += 1
 
-            # update the cache
-            self.prev_misc = self.misc
+        # update the cache
+        self.prev_misc = self.misc
 
-            # save the sample <s, a, r, s'> to the replay memory and decrease epsilon
-            self.agent.replay_memory(self.s_t,
+        # save the sample <s, a, r, s'> to the replay memory and decrease epsilon
+        self.agent.replay_memory(self.s_t,
                                      self.action_idx,
                                      self.r_t, self.s_t1,
                                      self.is_terminated,
@@ -158,8 +155,7 @@ class C51GridAgent:
         # save progress every 10000 iterations
         if self.t % 1000 == 0:
             print("Now we save model")
-            self.agent.model.save_weights(
-                "models/c51_ddqn.h5", overwrite=True)
+            self.agent.model.save_weights("models/c51_ddqn.h5", overwrite=True)
 
         # print info
 
