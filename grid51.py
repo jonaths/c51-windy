@@ -49,7 +49,7 @@ if __name__ == "__main__":
     prev_misc = misc
 
     action_size = 4
-    img_rows, img_cols = 4, 3
+    img_rows, img_cols = 3, 3
     img_channels = 2
 
     # C51
@@ -59,7 +59,7 @@ if __name__ == "__main__":
     agent = C51Agent(state_size, action_size, num_atoms)
 
     agent.model = Networks.value_distribution_network(state_size, num_atoms, action_size, agent.learning_rate)
-    # agent.load_model("models/c51_ddqn.h5")
+    agent.load_model("models/c51_ddqn.h5")
     agent.target_model = Networks.value_distribution_network(state_size, num_atoms, action_size, agent.learning_rate)
 
     data = range(img_rows * img_cols)
@@ -89,12 +89,12 @@ if __name__ == "__main__":
         a_t = np.zeros([action_size])
 
         # sleep(0.1)
-        # env.render()
-        # agent.plot_histogram(s_t1)
+        env.render()
+        agent.plot_histogram(s_t1)
 
         # Epsilon Greedy
-        # action_idx = input("action")
-        action_idx = agent.get_action(s_t)
+        action_idx = input("action")
+        # action_idx = agent.get_action(s_t)
         a_t[action_idx] = 1
         obs, r_t, done, misc = env.step(action_idx)
         is_terminated = done
