@@ -94,124 +94,128 @@ class C51GridAgent:
         :return:
         """
 
-        self.loss = 0
-        self.r_t = 0
-        self.a_t = np.zeros([self.action_size])
+        while not self.is_terminated:
 
-        # sleep(0.1)
-        self.env.render()
-        self.agent.plot_histogram(self.s_t1)
+            self.loss = 0
+            self.r_t = 0
+            self.a_t = np.zeros([self.action_size])
 
-        # Epsilon Greedy
-        self.action_idx = input("action")
-        # self.action_idx = self.agent.get_action(self.s_t)
-        self.a_t[self.action_idx] = 1
-        self.obs, self.r_t, self.done, self.misc = self.env.step(self.action_idx)
-        self.is_terminated = self.done
+            # sleep(0.1)
+            self.env.render()
+            self.agent.plot_histogram(self.s_t1)
 
-        if self.is_terminated:
+            # Epsilon Greedy
+            self.action_idx = input("action")
+            # self.action_idx = self.agent.get_action(self.s_t)
+            self.a_t[self.action_idx] = 1
+            self.obs, self.r_t, self.done, self.misc = self.env.step(self.action_idx)
+            self.is_terminated = self.done
 
-            if self.life > self.max_life:
-                self.max_life = self.life
+            if self.is_terminated:
 
-            self.GAME += 1
-            self.final_state_buffer.append(0 if self.misc['step_seq'][-1] == 8 else 1)
-            self.steps_buffer.append(len(self.misc['step_seq']))
-            self.reward_buffer.append(self.misc['sum_reward'])
-            self.env.reset()
+                if self.life > self.max_life:
+                    self.max_life = self.life
 
-        self.x_t1 = np.reshape(to_categorical(self.data)[self.obs], (self.img_rows, self.img_cols))
-        self.x_t1 = np.reshape(self.x_t1, (1, self.img_rows, self.img_cols, 1))
-        self.s_t1 = np.append(self.x_t1, self.s_t[:, :, :, :1], axis=3)
+                self.GAME += 1
+                self.final_state_buffer.append(0 if self.misc['step_seq'][-1] == 8 else 1)
+                self.steps_buffer.append(len(self.misc['step_seq']))
+                self.reward_buffer.append(self.misc['sum_reward'])
+                self.env.reset()
 
-        self.r_t = self.agent.shape_reward(self.r_t,
-                                           self.misc,
-                                           self.prev_misc,
-                                           self.t,
-                                           self.is_terminated)
+            self.x_t1 = np.reshape(to_categorical(self.data)[self.obs], (self.img_rows, self.img_cols))
+            self.x_t1 = np.reshape(self.x_t1, (1, self.img_rows, self.img_cols, 1))
+            self.s_t1 = np.append(self.x_t1, self.s_t[:, :, :, :1], axis=3)
 
-        if self.is_terminated:
-            self.life = 0
-        else:
-            self.life += 1
+            self.r_t = self.agent.shape_reward(self.r_t,
+                                               self.misc,
+                                               self.prev_misc,
+                                               self.t,
+                                               self.is_terminated)
 
-        # update the cache
-        self.prev_misc = self.misc
+            if self.is_terminated:
+                self.life = 0
+            else:
+                self.life += 1
 
-        # save the sample <s, a, r, s'> to the replay memory and decrease epsilon
-        self.agent.replay_memory(self.s_t,
-                                     self.action_idx,
-                                     self.r_t, self.s_t1,
-                                     self.is_terminated,
-                                     self.t)
+            # update the cache
+            self.prev_misc = self.misc
 
-        # Do the training
-        if self.t > self.agent.observe and self.t % self.agent.timestep_per_train == 0:
-            self.loss = self.agent.train_replay()
+            # save the sample <s, a, r, s'> to the replay memory and decrease epsilon
+            self.agent.replay_memory(self.s_t,
+                                         self.action_idx,
+                                         self.r_t, self.s_t1,
+                                         self.is_terminated,
+                                         self.t)
 
-        self.s_t = self.s_t1
-        self.t += 1
+            # Do the training
+            if self.t > self.agent.observe and self.t % self.agent.timestep_per_train == 0:
+                self.loss = self.agent.train_replay()
 
-        # save progress every 10000 iterations
-        if self.t % 1000 == 0:
-            print("Now we save model")
-            self.agent.model.save_weights("models/c51_ddqn.h5", overwrite=True)
+            self.s_t = self.s_t1
+            self.t += 1
 
-        # print info
+            # save progress every 10000 iterations
+            if self.t % 1000 == 0:
+                print("Now we save model")
+                self.agent.model.save_weights("models/c51_ddqn.h5", overwrite=True)
 
-        if self.t <= self.agent.observe:
-            self.state = "observe"
-        elif self.agent.observe < self.t <= self.agent.observe + self.agent.explore:
-            self.state = "explore"
-        else:
-            self.state = "train"
+            # print info
 
-        if self.is_terminated:
+            if self.t <= self.agent.observe:
+                self.state = "observe"
+            elif self.agent.observe < self.t <= self.agent.observe + self.agent.explore:
+                self.state = "explore"
+            else:
+                self.state = "train"
 
-            print("TIME", self.t, "/ GAME", self.GAME,
-                  "/ STATE", self.state, \
-                  "/ EPSILON", self.agent.epsilon,
-                  "/ ACTION", self.action_idx, "/ REWARD",
-                  self.r_t, \
-                  "/ LIFE", self.max_life, "/ LOSS",
-                  self.loss)
+            if self.is_terminated:
 
-            # Save Agent's Performance Statistics
-            if self.GAME % self.agent.stats_window_size == 0 and self.t > self.agent.observe:
-                print("Update Rolling Statistics")
-                self.agent.mavg_reward.append(
-                    np.mean(np.array(self.reward_buffer)))
-                self.agent.var_reward.append(
-                    np.std(np.array(self.reward_buffer)))
-                self.agent.mavg_steps.append(
-                    np.mean(np.array(self.steps_buffer)))
-                self.agent.var_steps.append(
-                    np.std(np.array(self.steps_buffer)))
-                self.agent.end_count.append(np.average(
-                    np.array(self.final_state_buffer)))
+                print("TIME", self.t, "/ GAME", self.GAME,
+                      "/ STATE", self.state, \
+                      "/ EPSILON", self.agent.epsilon,
+                      "/ ACTION", self.action_idx, "/ REWARD",
+                      self.r_t, \
+                      "/ LIFE", self.max_life, "/ LOSS",
+                      self.loss)
 
-                # Reset rolling stats buffer
-                self.final_state_buffer, self.reward_buffer, self.steps_buffer = [], [], []
+                # Save Agent's Performance Statistics
+                if self.GAME % self.agent.stats_window_size == 0 and self.t > self.agent.observe:
+                    print("Update Rolling Statistics")
+                    self.agent.mavg_reward.append(
+                        np.mean(np.array(self.reward_buffer)))
+                    self.agent.var_reward.append(
+                        np.std(np.array(self.reward_buffer)))
+                    self.agent.mavg_steps.append(
+                        np.mean(np.array(self.steps_buffer)))
+                    self.agent.var_steps.append(
+                        np.std(np.array(self.steps_buffer)))
+                    self.agent.end_count.append(np.average(
+                        np.array(self.final_state_buffer)))
 
-                # Write Rolling Statistics to file
-                with open("statistics/c51_ddqn_stats.txt",
-                          "w") as stats_file:
-                    stats_file.write(
-                        'Game: ' + str(self.GAME) + '\n')
-                    stats_file.write('Max Score= ' + str(
-                        self.max_life) + '\n')
-                    stats_file.write('mavg_reward= ' + str(
-                        self.agent.mavg_reward) + '\n')
-                    stats_file.write('var_reward= ' + str(
-                        self.agent.var_reward) + '\n')
-                    stats_file.write('mavg_steps= ' + str(
-                        self.agent.mavg_steps) + '\n')
-                    stats_file.write('var_steps= ' + str(
-                        self.agent.var_steps) + '\n')
-                    stats_file.write('end_count= ' + str(
-                        self.agent.end_count) + '\n')
+                    # Reset rolling stats buffer
+                    self.final_state_buffer, self.reward_buffer, self.steps_buffer = [], [], []
 
-            return self.misc
+                    # Write Rolling Statistics to file
+                    with open("statistics/c51_ddqn_stats.txt",
+                              "w") as stats_file:
+                        stats_file.write(
+                            'Game: ' + str(self.GAME) + '\n')
+                        stats_file.write('Max Score= ' + str(
+                            self.max_life) + '\n')
+                        stats_file.write('mavg_reward= ' + str(
+                            self.agent.mavg_reward) + '\n')
+                        stats_file.write('var_reward= ' + str(
+                            self.agent.var_reward) + '\n')
+                        stats_file.write('mavg_steps= ' + str(
+                            self.agent.mavg_steps) + '\n')
+                        stats_file.write('var_steps= ' + str(
+                            self.agent.var_steps) + '\n')
+                        stats_file.write('end_count= ' + str(
+                            self.agent.end_count) + '\n')
+
+        print(self.misc)
+
+        return self.misc
 
 
 def run_all():
