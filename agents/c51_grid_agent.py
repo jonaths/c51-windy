@@ -217,16 +217,6 @@ class C51GridAgent:
             return self.misc
 
 
-def test():
-    print("XXX")
-    grid_agent = C51GridAgent()
-
-    while not grid_agent.is_terminated:
-        print("YYY")
-        print(grid_agent.run_episode())
-        grid_agent.is_terminated = False
-
-
 def run_all():
     # Avoid Tensorflow eats up GPU memory
     config = tf.ConfigProto()
@@ -395,4 +385,4 @@ def run_all():
 
 
 if __name__ == "__main__":
-    test()
+    run_all()
