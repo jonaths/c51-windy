@@ -38,7 +38,7 @@ env.reset()
 # # actions = [2, 2, 1, 1, 0, 0]
 #
 # # bottom
-# # actions = [2, 2, 2, 1, 1, 0, 0, 0]
+# #
 #
 # # Buffer to compute rolling statistics
 # final_state_buffer, reward_buffer, steps_buffer = [], [], []

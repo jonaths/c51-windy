@@ -101,12 +101,12 @@ class C51GridAgent:
             self.a_t = np.zeros([self.action_size])
 
             # sleep(0.1)
-            self.env.render()
-            self.agent.plot_histogram(self.s_t1)
+            # self.env.render()
+            # self.agent.plot_histogram(self.s_t1)
 
             # Epsilon Greedy
-            self.action_idx = input("action")
-            # self.action_idx = self.agent.get_action(self.s_t)
+            # self.action_idx = input("action")
+            self.action_idx = self.agent.get_action(self.s_t)
             self.a_t[self.action_idx] = 1
             self.obs, self.r_t, self.done, self.misc = self.env.step(self.action_idx)
             self.is_terminated = self.done
@@ -169,7 +169,7 @@ class C51GridAgent:
                 self.state = "train"
 
             if self.is_terminated:
-
+                self.is_terminated = False
                 print("TIME", self.t, "/ GAME", self.GAME,
                       "/ STATE", self.state, \
                       "/ EPSILON", self.agent.epsilon,
