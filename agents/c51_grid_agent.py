@@ -7,6 +7,7 @@ import tensorflow as tf
 from keras import backend as K
 from keras.utils import to_categorical
 import sys
+from time import sleep
 
 from lib.c51 import C51Agent
 
@@ -107,6 +108,7 @@ class C51GridAgent:
             # Epsilon Greedy
             # self.action_idx = input("action")
             self.action_idx = self.agent.get_action(self.s_t)
+            print("action selected: ", str(self.action_idx))
             self.a_t[self.action_idx] = 1
             self.obs, self.r_t, self.done, self.misc = self.env.step(self.action_idx)
             self.is_terminated = self.done
@@ -169,7 +171,7 @@ class C51GridAgent:
                 self.state = "train"
 
             if self.is_terminated:
-                self.is_terminated = False
+
                 print("TIME", self.t, "/ GAME", self.GAME,
                       "/ STATE", self.state, \
                       "/ EPSILON", self.agent.epsilon,
@@ -213,7 +215,7 @@ class C51GridAgent:
                         stats_file.write('end_count= ' + str(
                             self.agent.end_count) + '\n')
 
-        print(self.misc)
+        self.is_terminated = False
 
         return self.misc
 

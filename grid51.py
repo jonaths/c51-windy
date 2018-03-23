@@ -10,28 +10,30 @@ from agents.safe_grid_agent import SafeGridAgent
 from agents.risky_grid_agent import RiskyGridAgent
 
 
-def plot_avg_std(ax, results, title):
+def plot_avg_std(ax, results, title, linestyle='-', label=None):
     ax.set_title(title)
     return ax.errorbar(
         range(results.shape[1]),
         np.average(results, 0),
         yerr=np.std(results, 0),
-        errorevery=5
+        errorevery=5,
+        linestyle=linestyle,
+        label=label
     )
 
 
-def plot_failure_rate(ax, results, title):
+def plot_failure_rate(ax, results, title, linestyle='-'):
     failures = (results[:, -1] <= 0) * 1
     ax.set_title(title)
     return ax.plot(
-        range(results.shape[0]), np.cumsum(failures))
+        range(results.shape[0]), np.cumsum(failures), linestyle=linestyle)
 
 class Experimenter:
     """
     Runs an experiment until Done is set to true by ai gym using an agent
     """
 
-    def __init__(self, num_experiments=100, max_episodes=10, init_b=2):
+    def __init__(self, num_experiments=1000, max_episodes=20, init_b=2):
         self.num_experiments = num_experiments
         self.max_episodes = max_episodes
         self.init_b = init_b
@@ -52,6 +54,8 @@ class Experimenter:
             # repeats for a given amount of episodes
             while not episode >= self.max_episodes:
                 result = agent.run_episode()
+                print(result)
+
                 # adds current reward to total experiment budget
                 b += result['sum_reward']
                 # adds the last position to the end_count list
@@ -70,10 +74,12 @@ class Experimenter:
 if __name__ == "__main__":
 
     budgets = [0, 2, 4]
-    _, axs_avg = plt.subplots(nrows=len(budgets))
-    _, axs_failure = plt.subplots(nrows=len(budgets))
+    fig_avg, axs_avg = plt.subplots(nrows=len(budgets))
+    fig_failure, axs_failure = plt.subplots(nrows=len(budgets))
 
     for b in range(len(budgets)):
+
+        print(str(budgets[b])+" ================================================")
 
         exp = Experimenter(init_b=budgets[b])
 
@@ -83,15 +89,23 @@ if __name__ == "__main__":
 
         print("safe")
         print(safe_results)
+        print("c51")
+        print(c51_results)
         print("risky")
         print(risky_results)
 
-        plot_avg_std(axs_avg[b], safe_results, 'b='+str(budgets[b]))
-        plot_avg_std(axs_avg[b], c51_results, 'b=' + str(budgets[b]))
-        plot_avg_std(axs_avg[b], risky_results, 'b='+str(budgets[b]))
+        plot_avg_std(axs_avg[b], safe_results, 'b='+str(budgets[b]), '-', label="safe")
+        plot_avg_std(axs_avg[b], c51_results, 'b=' + str(budgets[b]), '-.', label="r")
+        plot_avg_std(axs_avg[b], risky_results, 'b='+str(budgets[b]), ':', label="risky")
+        plt.legend()
 
-        plot_failure_rate(axs_failure[b], safe_results, 'b='+str(budgets[b]))
-        plot_failure_rate(axs_failure[b], c51_results, 'b=' + str(budgets[b]))
-        plot_failure_rate(axs_failure[b], risky_results, 'b='+str(budgets[b]))
+        plot_failure_rate(axs_failure[b], safe_results, 'b='+str(budgets[b]), '-')
+        plot_failure_rate(axs_failure[b], c51_results, 'b=' + str(budgets[b]), '-.')
+        plot_failure_rate(axs_failure[b], risky_results, 'b='+str(budgets[b]), ':')
+        plt.legend()
+
+    fig_avg.suptitle('Average final budget per episode')
+    fig_failure.suptitle('Failure count per experiment')
+
 
     plt.show()
