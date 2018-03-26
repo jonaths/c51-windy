@@ -60,7 +60,7 @@ class C51GridAgent:
             self.state_size, self.num_atoms,
             self.action_size,
             self.agent.learning_rate)
-        self.agent.load_model("models/c51_ddqn.h5")
+        # self.agent.load_model("models/c51_ddqn.h5")
         self.agent.target_model = Networks.value_distribution_network(
             self.state_size, self.num_atoms,
             self.action_size,
