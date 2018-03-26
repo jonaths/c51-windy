@@ -68,8 +68,7 @@ class C51GridAgent:
 
         self.data = range(self.img_rows * self.img_cols)
         self.x_t = np.reshape(to_categorical(self.data)[0], (self.img_rows, self.img_cols))
-        self.s_t = np.stack(
-            ([self.x_t] * self.img_channels), axis=0)
+        self.s_t = np.stack(([self.x_t] * self.img_channels), axis=0)
         self.s_t = np.rollaxis(self.s_t, 0, 3)
         self.s_t = np.expand_dims(self.s_t, axis=0)
         self.s_t1 = self.s_t
@@ -102,13 +101,13 @@ class C51GridAgent:
             self.a_t = np.zeros([self.action_size])
 
             # sleep(0.1)
-            # self.env.render()
-            # self.agent.plot_histogram(self.s_t1)
+            print("st:", self.s_t1)
+            self.env.render()
+            self.agent.plot_histogram(self.s_t1)
 
             # Epsilon Greedy
-            # self.action_idx = input("action")
-            self.action_idx = self.agent.get_action(self.s_t)
-            print("action selected: ", str(self.action_idx))
+            self.action_idx = input("action")
+            # self.action_idx = self.agent.get_action(self.s_t)
             self.a_t[self.action_idx] = 1
             self.obs, self.r_t, self.done, self.misc = self.env.step(self.action_idx)
             self.is_terminated = self.done
@@ -126,7 +125,12 @@ class C51GridAgent:
 
             self.x_t1 = np.reshape(to_categorical(self.data)[self.obs], (self.img_rows, self.img_cols))
             self.x_t1 = np.reshape(self.x_t1, (1, self.img_rows, self.img_cols, 1))
-            self.s_t1 = np.append(self.x_t1, self.s_t[:, :, :, :1], axis=3)
+
+            # considera historial en un canal
+            # self.s_t1 = np.append(self.x_t1, self.s_t[:, :, :, :1], axis=3)
+
+            # no considera historial en un canal
+            self.s_t1 = np.append(self.x_t1, self.x_t1, axis=3)
 
             self.r_t = self.agent.shape_reward(self.r_t,
                                                self.misc,

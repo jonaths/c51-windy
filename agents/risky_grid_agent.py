@@ -34,11 +34,11 @@ class RiskyGridAgent:
         :return:
         """
 
-        self.actions = [2, 1, 1, 0]
+        self.actions = [1, 1, 0]
 
         while not self.is_terminated:
 
-            # sleep(0.1)
+            # sleep(1)
             # self.env.render()
             self.action_idx = self.actions.pop(0)
             _, _, self.done, self.misc = self.env.step(self.action_idx)
