@@ -34,7 +34,7 @@ class RiskyGridAgent:
         :return:
         """
 
-        self.actions = [1, 1, 0]
+        self.actions = [0, 0]
 
         while not self.is_terminated:
 

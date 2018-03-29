@@ -35,7 +35,7 @@ class SafeGridAgent:
         En ese momento se setea is_finished y se guardan estadisticas.
         :return:
         """
-        self.actions = [2, 1, 1, 0, 0]
+        self.actions = [1, 1]
 
         while not self.is_terminated:
 

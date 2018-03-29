@@ -101,13 +101,13 @@ class C51GridAgent:
             self.a_t = np.zeros([self.action_size])
 
             # sleep(0.1)
-            print("st:", self.s_t1)
-            self.env.render()
-            self.agent.plot_histogram(self.s_t1)
+            # print("st:", self.s_t1)
+            # self.env.render()
+            # self.agent.plot_histogram(self.s_t1)
 
             # Epsilon Greedy
-            self.action_idx = input("action")
-            # self.action_idx = self.agent.get_action(self.s_t)
+            # self.action_idx = input("action")
+            self.action_idx = self.agent.get_action(self.s_t)
 
             self.a_t[self.action_idx] = 1
             self.obs, self.r_t, self.done, self.misc = self.env.step(self.action_idx)
@@ -162,9 +162,9 @@ class C51GridAgent:
             self.t += 1
 
             # save progress every 10000 iterations
-            if self.t % 1000 == 0:
-                print("Now we save model")
-                self.agent.model.save_weights("models/c51_ddqn.h5", overwrite=True)
+            # if self.t % 1000 == 0:
+            #     print("Now we save model")
+            #     self.agent.model.save_weights("models/c51_ddqn.h5", overwrite=True)
 
             # print info
 

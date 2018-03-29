@@ -4,6 +4,7 @@ from keras.utils import to_categorical
 # from numpy import array
 # from numpy import argmax
 import numpy as np
+import sys
 
 
 # action_size = 4
@@ -26,8 +27,8 @@ import numpy as np
 # print(s_t)
 # print(s_t.shape)
 
-env = gym.make("windy-v0")
-env.reset()
+# env = gym.make("windy-v0")
+# env.reset()
 
 # # call this to be able to use render() method
 #
@@ -97,10 +98,10 @@ env.reset()
 #                 stats_file.write(
 #                     'end_count: ' + str(end_count) + '\n')
 
-while True:
-    env.render()
-    action_idx = input()
-    print(env.step(action_idx))
+# while True:
+#     env.render()
+#     action_idx = input()
+#     print(env.step(action_idx))
 #
 # action_idx = input()
 # print(env.step(action_idx))
@@ -142,3 +143,26 @@ while True:
 # # invert encoding
 # inverted = argmax(encoded[0])
 # print(inverted)
+
+def reduce_noise(bins):
+    final_bins = []
+
+    for bin in bins:
+        counts, bin_edges = np.histogram(bin, bins=10)
+        thres = 0.2 * np.sum(counts)
+        val = bin_edges[np.argmax(np.cumsum(counts) > thres)]
+        print(counts, bin_edges, val)
+        sys.exit(0)
+        bin = np.asarray(bin - val).clip(min=0)
+        sum = np.sum(bin)
+        bin = bin / sum
+        final_bins.append(bin)
+    return final_bins
+
+
+bin = np.random.rand(1,100)
+sum = np.sum(bin)
+bin = bin / sum
+print(bin)
+print reduce_noise(bin)
+print(np.sum(bin))
