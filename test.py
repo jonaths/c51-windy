@@ -144,25 +144,27 @@ import sys
 # inverted = argmax(encoded[0])
 # print(inverted)
 
-def reduce_noise(bins):
-    final_bins = []
+# def reduce_noise(bins):
+#     final_bins = []
+#
+#     for bin in bins:
+#         counts, bin_edges = np.histogram(bin, bins=10)
+#         thres = 0.2 * np.sum(counts)
+#         val = bin_edges[np.argmax(np.cumsum(counts) > thres)]
+#         print(counts, bin_edges, val)
+#         sys.exit(0)
+#         bin = np.asarray(bin - val).clip(min=0)
+#         sum = np.sum(bin)
+#         bin = bin / sum
+#         final_bins.append(bin)
+#     return final_bins
 
-    for bin in bins:
-        counts, bin_edges = np.histogram(bin, bins=10)
-        thres = 0.2 * np.sum(counts)
-        val = bin_edges[np.argmax(np.cumsum(counts) > thres)]
-        print(counts, bin_edges, val)
-        sys.exit(0)
-        bin = np.asarray(bin - val).clip(min=0)
-        sum = np.sum(bin)
-        bin = bin / sum
-        final_bins.append(bin)
-    return final_bins
+def prob_b(z_concat, z, b):
 
 
-bin = np.random.rand(1,100)
+bin = np.random.rand(1,5)
 sum = np.sum(bin)
 bin = bin / sum
 print(bin)
-print reduce_noise(bin)
-print(np.sum(bin))
+# print reduce_noise(bin)
+# print(np.sum(bin))
