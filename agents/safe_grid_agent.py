@@ -28,8 +28,7 @@ class SafeGridAgent:
         self.env.reset()
         self.is_terminated = False
 
-
-    def run_episode(self):
+    def run_episode(self, b=0):
         """
         Corre un episodio hasta que ai-gym regresa una bandera done=True.
         En ese momento se setea is_finished y se guardan estadisticas.

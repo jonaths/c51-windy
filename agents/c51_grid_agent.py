@@ -80,14 +80,17 @@ class C51GridAgent:
         self.epsilon = self.agent.initial_epsilon
         self.GAME = 0
         self.t = 0
-        self.max_life = 0  # Maximum episode life (Proxy for agent performance)
+        # Maximum episode life (Proxy for agent performance)
+        self.max_life = 0
         self.life = 0
         self.state = ""
+        # inicializacion de misc
+        self.misc = {'sum_reward': 0}
 
         # Buffer to compute rolling statistics
         self.final_state_buffer, self.reward_buffer, self.steps_buffer = [], [], []
 
-    def run_episode(self):
+    def run_episode(self, b=0):
         """
         Corre un episodio hasta que ai-gym regresa una bandera done=True.
         En ese momento se setea is_finished y se guardan estadisticas.
@@ -96,20 +99,21 @@ class C51GridAgent:
 
         while not self.is_terminated:
 
+            # current_budget = b + self.misc['sum_reward']
+            current_budget = b + 0
+
             self.loss = 0
             self.r_t = 0
             self.a_t = np.zeros([self.action_size])
 
             # sleep(0.1)
-            print("st:", self.s_t1)
-            self.env.render()
-            self.agent.plot_histogram(self.s_t1)
+            # print("st:", self.s_t1)
+            # self.env.render()
+            # self.agent.plot_histogram(self.s_t1)
 
-
-
-            # Epsilon Greedy
             # self.action_idx = input("action")
-            self.action_idx = self.agent.get_action(self.s_t)
+            # self.action_idx = self.agent.get_action(self.s_t)
+            self.action_idx = self.agent.get_action(self.s_t, current_budget)
 
             self.a_t[self.action_idx] = 1
             self.obs, self.r_t, self.done, self.misc = self.env.step(self.action_idx)

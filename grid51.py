@@ -33,7 +33,7 @@ class Experimenter:
     Runs an experiment until Done is set to true by ai gym using an agent
     """
 
-    def __init__(self, num_experiments=1000, max_episodes=20, init_b=2):
+    def __init__(self, num_experiments=500, max_episodes=15, init_b=2):
         self.num_experiments = num_experiments
         self.max_episodes = max_episodes
         self.init_b = init_b
@@ -53,7 +53,8 @@ class Experimenter:
             r[exp_i, 0] = b
             # repeats for a given amount of episodes
             while not episode >= self.max_episodes:
-                result = agent.run_episode()
+                # runs episode starting with budget b
+                result = agent.run_episode(b)
                 print(result)
 
                 # adds current reward to total experiment budget
@@ -73,43 +74,47 @@ class Experimenter:
 
 if __name__ == "__main__":
 
-    agent = C51GridAgent()
-    while True:
-        agent.run_episode()
+    # agent = C51GridAgent()
+    # while True:
+    #     agent.run_episode(4)
 
-    # budgets = [0, 5, 10]
-    # fig_avg, axs_avg = plt.subplots(nrows=len(budgets))
-    # fig_failure, axs_failure = plt.subplots(nrows=len(budgets))
-    #
-    # for b in range(len(budgets)):
-    #
-    #     print(str(budgets[b])+" ================================================")
-    #
-    #     exp = Experimenter(init_b=budgets[b])
-    #
-    #     safe_results, _ = exp.run(agent=SafeGridAgent())
-    #     c51_results, _ = exp.run(agent=C51GridAgent())
-    #     risky_results, _ = exp.run(agent=RiskyGridAgent())
-    #
-    #     # print("safe")
-    #     # print(safe_results)
-    #     # print("c51")
-    #     # print(c51_results)
-    #     # print("risky")
-    #     # print(risky_results)
-    #
-    #     plot_avg_std(axs_avg[b], safe_results, 'b='+str(budgets[b]), '-', label="safe", errorevery=5)
-    #     plot_avg_std(axs_avg[b], c51_results, 'b=' + str(budgets[b]), '-.', label="r")
-    #     plot_avg_std(axs_avg[b], risky_results, 'b='+str(budgets[b]), ':', label="risky", errorevery=4)
-    #     plt.legend()
-    #
-    #     plot_failure_rate(axs_failure[b], safe_results, 'b='+str(budgets[b]), '-')
-    #     plot_failure_rate(axs_failure[b], c51_results, 'b=' + str(budgets[b]), '-.')
-    #     plot_failure_rate(axs_failure[b], risky_results, 'b='+str(budgets[b]), ':')
-    #     plt.legend()
-    #
-    # fig_avg.suptitle('Average final budget per episode')
-    # fig_failure.suptitle('Failure count per experiment')
-    #
-    #
-    # plt.show()
+    budgets = [0, 2, 4, 8]
+    fig_avg, axs_avg = plt.subplots(nrows=len(budgets))
+    fig_failure, axs_failure = plt.subplots(nrows=len(budgets))
+
+    for b in range(len(budgets)):
+
+        print(str(budgets[b])+" ================================================")
+
+        exp = Experimenter(init_b=budgets[b])
+
+        safe_results, _ = exp.run(agent=SafeGridAgent())
+        c51_results, _ = exp.run(agent=C51GridAgent())
+        risky_results, _ = exp.run(agent=RiskyGridAgent())
+
+        # print("safe")
+        # print(safe_results)
+        # print("c51")
+        # print(c51_results)
+        # print("risky")
+        # print(risky_results)
+
+        np.save('results/safe_'+str(b)+'.npy', safe_results)
+        np.save('results/c51_' + str(b) + '.npy', c51_results)
+        np.save('results/risky_' + str(b) + '.npy', risky_results)
+
+        plot_avg_std(axs_avg[b], safe_results, 'b='+str(budgets[b]), '-', label="safe", errorevery=5)
+        plot_avg_std(axs_avg[b], c51_results, 'b=' + str(budgets[b]), '-.', label="r")
+        plot_avg_std(axs_avg[b], risky_results, 'b='+str(budgets[b]), ':', label="risky", errorevery=4)
+        plt.legend()
+
+        plot_failure_rate(axs_failure[b], safe_results, 'b='+str(budgets[b]), '-')
+        plot_failure_rate(axs_failure[b], c51_results, 'b=' + str(budgets[b]), '-.')
+        plot_failure_rate(axs_failure[b], risky_results, 'b='+str(budgets[b]), ':')
+        plt.legend()
+
+    fig_avg.suptitle('Average final budget per episode')
+    fig_failure.suptitle('Failure count per experiment')
+
+
+    plt.show()
