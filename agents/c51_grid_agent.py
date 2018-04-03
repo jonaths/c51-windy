@@ -108,8 +108,8 @@ class C51GridAgent:
 
 
             # Epsilon Greedy
-            self.action_idx = input("action")
-            # self.action_idx = self.agent.get_action(self.s_t)
+            # self.action_idx = input("action")
+            self.action_idx = self.agent.get_action(self.s_t)
 
             self.a_t[self.action_idx] = 1
             self.obs, self.r_t, self.done, self.misc = self.env.step(self.action_idx)
