@@ -1,170 +1,40 @@
-import gym
-import gym_windy
-from keras.utils import to_categorical
-# from numpy import array
-# from numpy import argmax
 import numpy as np
+import matplotlib.pyplot as plt
 import sys
 
 
-# action_size = 4
-# img_rows, img_cols = 4, 3
-# img_channels = 2
-# num_atoms = 51
-#
-# state_size = (img_rows, img_cols, img_channels)
-#
-# data = range(img_rows * img_cols)
-# x_t = np.reshape(to_categorical(data)[0], (img_rows, img_cols))
-# s_t = np.stack(([x_t] * img_channels), axis=0)
-# s_t = np.rollaxis(s_t, 0, 3)
-# s_t = np.expand_dims(s_t, axis=0)
-#
-# print s_t.shape
-# print(s_t)
+def plot_xy(ax, data, color):
+
+    # data = np.arange(0, 10).reshape(2, 5)
+    print(data.shape)
+
+    data = data.reshape(data.shape[0] * data.shape[1], 1)
+    print(data.shape)
+
+    data = np.append(data, np.roll(data, 1)).reshape(2, data.shape[0] * data.shape[1])
+    print(data)
+
+    print data.shape
+    return ax.scatter(data[0], data[1], color=color, s=5)
 
 
-# print(s_t)
-# print(s_t.shape)
+plt.grid(True)
+fig, ax = plt.subplots(nrows=3, sharex=True)
 
-# env = gym.make("windy-v0")
-# env.reset()
-
-# # call this to be able to use render() method
-#
-# # top
-# actions = [2, 1, 1, 0]
-#
-# # middle
-# # actions = [2, 2, 1, 1, 0, 0]
-#
-# # bottom
-# #
-#
-# # Buffer to compute rolling statistics
-# final_state_buffer, reward_buffer, steps_buffer = [], [], []
-#
-# t = 0
-# i = 0
-# GAME = 0
-# mavg_reward, var_reward, mavg_steps, var_steps, end_count = [], [], [], [], []
-#
-# while GAME < 10000:
-#
-#     # env.render()
-#     obs, r_t, done, misc = env.step(actions[i])
-#     is_terminated = done
-#     print(t, actions[i], obs)
-#     i += 1
-#     t += 1
-#
-#     if is_terminated:
-#         final_state_buffer.append(0 if misc['step_seq'][-1] == 8 else 1)
-#         steps_buffer.append(len(misc['step_seq']))
-#         reward_buffer.append(misc['sum_reward'])
-#         env.reset()
-#         i = 0
-#         GAME += 1
-#         print("=== DONE")
-#
-#         if GAME % 50 == 0:
-#             print("Update Rolling Statistics")
-#             mavg_reward.append(
-#                 np.mean(np.array(reward_buffer)))
-#             var_reward.append(
-#                 np.std(np.array(reward_buffer)))
-#             mavg_steps.append(
-#                 np.mean(np.array(steps_buffer)))
-#             var_steps.append(
-#                 np.std(np.array(steps_buffer)))
-#             end_count.append(
-#                 np.average(np.array(final_state_buffer)))
-#
-#             # Reset rolling stats buffer
-#             final_state_buffer, reward_buffer, steps_buffer = [], [], []
-#
-#             # Write Rolling Statistics to file
-#             with open("statistics/domain_stats.txt",
-#                       "w") as stats_file:
-#                 stats_file.write('Game: ' + str(GAME) + '\n')
-#                 stats_file.write('mavg_reward: ' + str(
-#                     mavg_reward) + '\n')
-#                 stats_file.write('var_reward: ' + str(
-#                     var_reward) + '\n')
-#                 stats_file.write('mavg_steps: ' + str(
-#                     mavg_steps) + '\n')
-#                 stats_file.write(
-#                     'var_steps: ' + str(var_steps) + '\n')
-#                 stats_file.write(
-#                     'end_count: ' + str(end_count) + '\n')
-
-# while True:
-#     env.render()
-#     action_idx = input()
-#     print(env.step(action_idx))
-#
-# action_idx = input()
-# print(env.step(action_idx))
-#
-# action_idx = input()
-# print(env.step(action_idx))
-#
-# action_idx = input()
-# print(env.step(action_idx))
-
-# print()
-# env.render()
-# print(env.step(2))
-# env.render()
-# #print(env.step(2))
-# print(env.step(1))
-# env.render()
-# print(env.step(1))
-# env.render()
-# print(env.step(0))
-# env.render()
-# print(env.step(0))
-# env.render()
-# print(env.step(0))
-# env.render()
-# print(env.step(0))
-# env.render()
-#
-# print(env.action_space)
-# env.action_space.sample()
-#
-
-# define example
-# data = range(12)
-# print(data)
-# # one hot encode
-# encoded = to_categorical(data)
-# print(encoded)
-# # invert encoding
-# inverted = argmax(encoded[0])
-# print(inverted)
-
-# def reduce_noise(bins):
-#     final_bins = []
-#
-#     for bin in bins:
-#         counts, bin_edges = np.histogram(bin, bins=10)
-#         thres = 0.2 * np.sum(counts)
-#         val = bin_edges[np.argmax(np.cumsum(counts) > thres)]
-#         print(counts, bin_edges, val)
-#         sys.exit(0)
-#         bin = np.asarray(bin - val).clip(min=0)
-#         sum = np.sum(bin)
-#         bin = bin / sum
-#         final_bins.append(bin)
-#     return final_bins
-
-def prob_b(z_concat, z, b):
+plot_xy(ax[0], np.load('results/c51_0.npy'), color='red')
+plot_xy(ax[0], np.load('results/c51_1.npy'), color='blue')
+plot_xy(ax[0], np.load('results/c51_2.npy'), color='green')
+plot_xy(ax[0], np.load('results/c51_3.npy'), color='black')
 
 
-bin = np.random.rand(1,5)
-sum = np.sum(bin)
-bin = bin / sum
-print(bin)
-# print reduce_noise(bin)
-# print(np.sum(bin))
+plot_xy(ax[1], np.load('results/risky_0.npy'), color='red')
+plot_xy(ax[1], np.load('results/risky_1.npy'), color='blue')
+plot_xy(ax[1], np.load('results/risky_2.npy'), color='green')
+plot_xy(ax[1], np.load('results/risky_3.npy'), color='black')
+
+plot_xy(ax[2], np.load('results/safe_0.npy'), color='red')
+plot_xy(ax[2], np.load('results/safe_1.npy'), color='blue')
+plot_xy(ax[2], np.load('results/safe_2.npy'), color='green')
+plot_xy(ax[2], np.load('results/safe_3.npy'), color='black')
+
+plt.show()

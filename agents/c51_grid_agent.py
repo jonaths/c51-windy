@@ -84,8 +84,7 @@ class C51GridAgent:
         self.max_life = 0
         self.life = 0
         self.state = ""
-        # inicializacion de misc
-        self.misc = {'sum_reward': 0}
+
 
         # Buffer to compute rolling statistics
         self.final_state_buffer, self.reward_buffer, self.steps_buffer = [], [], []
@@ -97,10 +96,17 @@ class C51GridAgent:
         :return:
         """
 
+        # inicializacion de misc
+
+        self.misc = {'sum_reward': 0}
+
         while not self.is_terminated:
 
-            # current_budget = b + self.misc['sum_reward']
-            current_budget = b + 0
+            current_budget = b + self.misc['sum_reward']
+            # current_budget = b + 0
+
+            # print("current budget")
+            # print(current_budget)
 
             self.loss = 0
             self.r_t = 0
