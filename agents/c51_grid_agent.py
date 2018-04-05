@@ -102,7 +102,7 @@ class C51GridAgent:
 
         while not self.is_terminated:
 
-            current_budget = b + self.misc['sum_reward']
+            # current_budget = b + self.misc['sum_reward']
             # current_budget = b + 0
 
             # print("current budget")
@@ -113,12 +113,12 @@ class C51GridAgent:
             self.a_t = np.zeros([self.action_size])
 
             # sleep(0.1)
-            print("st:", self.s_t1)
-            self.env.render()
-            self.agent.plot_histogram(self.s_t1)
+            # print("st:", self.s_t1)
+            # self.env.render()
+            # self.agent.plot_histogram(self.s_t1)
 
-            self.action_idx = input("action")
-            # self.action_idx = self.agent.get_action(self.s_t)
+            # self.action_idx = input("action")
+            self.action_idx = self.agent.get_action(self.s_t)
             # self.action_idx = self.agent.get_action(self.s_t, current_budget)
 
             self.a_t[self.action_idx] = 1
