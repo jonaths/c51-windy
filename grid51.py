@@ -33,7 +33,7 @@ class Experimenter:
     Runs an experiment until Done is set to true by ai gym using an agent
     """
 
-    def __init__(self, num_experiments=500, max_episodes=15, init_b=2):
+    def __init__(self, num_experiments=100, max_episodes=15, init_b=2):
         self.num_experiments = num_experiments
         self.max_episodes = max_episodes
         self.init_b = init_b
@@ -48,6 +48,7 @@ class Experimenter:
 
         # repeats experiment num_experiments times
         for exp_i in range(self.num_experiments):
+
             episode = 0
             b = self.init_b
             r[exp_i, 0] = b
@@ -67,8 +68,9 @@ class Experimenter:
                 episode += 1
                 # ends if it ran out of budget in this experiment
                 if b <= 0:
+                    print("Game done (Budget) --------------------------------")
                     break
-
+            print("Game done (Episodes) --------------------------------------")
         return r, end_count
 
 
@@ -84,13 +86,15 @@ if __name__ == "__main__":
 
     for b in range(len(budgets)):
 
-        print(str(budgets[b])+" ================================================")
+
+
+        print(str(budgets[b])+" ==============================================")
 
         exp = Experimenter(init_b=budgets[b])
 
-        safe_results, _ = exp.run(agent=SafeGridAgent())
+        # safe_results, _ = exp.run(agent=SafeGridAgent())
         c51_results, _ = exp.run(agent=C51GridAgent())
-        risky_results, _ = exp.run(agent=RiskyGridAgent())
+        # risky_results, _ = exp.run(agent=RiskyGridAgent())
 
         # print("safe")
         # print(safe_results)
@@ -99,18 +103,18 @@ if __name__ == "__main__":
         # print("risky")
         # print(risky_results)
 
-        np.save('results/safe_'+str(b)+'.npy', safe_results)
+        # np.save('results/safe_'+str(b)+'.npy', safe_results)
         np.save('results/c51_' + str(b) + '.npy', c51_results)
-        np.save('results/risky_' + str(b) + '.npy', risky_results)
+        # np.save('results/risky_' + str(b) + '.npy', risky_results)
 
-        plot_avg_std(axs_avg[b], safe_results, 'b='+str(budgets[b]), '-', label="safe", errorevery=5)
+        # plot_avg_std(axs_avg[b], safe_results, 'b='+str(budgets[b]), '-', label="safe", errorevery=5)
         plot_avg_std(axs_avg[b], c51_results, 'b=' + str(budgets[b]), '-.', label="r")
-        plot_avg_std(axs_avg[b], risky_results, 'b='+str(budgets[b]), ':', label="risky", errorevery=4)
+        # plot_avg_std(axs_avg[b], risky_results, 'b='+str(budgets[b]), ':', label="risky", errorevery=4)
         plt.legend()
 
-        plot_failure_rate(axs_failure[b], safe_results, 'b='+str(budgets[b]), '-')
+        # plot_failure_rate(axs_failure[b], safe_results, 'b='+str(budgets[b]), '-')
         plot_failure_rate(axs_failure[b], c51_results, 'b=' + str(budgets[b]), '-.')
-        plot_failure_rate(axs_failure[b], risky_results, 'b='+str(budgets[b]), ':')
+        # plot_failure_rate(axs_failure[b], risky_results, 'b='+str(budgets[b]), ':')
         plt.legend()
 
     fig_avg.suptitle('Average final budget per episode')
