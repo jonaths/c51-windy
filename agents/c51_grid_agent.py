@@ -90,15 +90,23 @@ class C51GridAgent:
         self.final_state_buffer, self.reward_buffer, self.steps_buffer = [], [], []
 
     def process_state(self, obs):
-        self.x_t1 = np.reshape(to_categorical(self.data)[obs],
+        """
+        Converts an integer state as provided by ai-gym into a numpy matrix state
+        required by the learning algorithm.
+        :param obs:
+        :return:
+        """
+        x_t1 = np.reshape(to_categorical(self.data)[obs],
                                (self.img_rows, self.img_cols))
-        self.x_t1 = np.reshape(self.x_t1, (1, self.img_rows, self.img_cols, 1))
+        x_t1 = np.reshape(x_t1, (1, self.img_rows, self.img_cols, 1))
 
         # considera historial en un canal
         # self.s_t1 = np.append(self.x_t1, self.s_t[:, :, :, :1], axis=3)
 
         # no considera historial en un canal
-        self.s_t1 = np.append(self.x_t1, self.x_t1, axis=3)
+        s_t1 = np.append(x_t1, x_t1, axis=3)
+
+        return s_t1
 
 
     def run_episode(self, b=0):
@@ -111,6 +119,13 @@ class C51GridAgent:
         # inicializacion de misc
 
         self.misc = {'sum_reward': 0}
+
+        int_states = [2]
+        states = np.zeros((len(int_states), self.action_size, self.num_atoms))
+        for s in range(len(int_states)):
+            states[s] = self.agent.predict(self.process_state(s))[0]
+        self.agent.plot_policy(states)
+
 
         while not self.is_terminated:
 
@@ -153,7 +168,7 @@ class C51GridAgent:
                 self.reward_buffer.append(self.misc['sum_reward'])
                 self.env.reset()
 
-            self.process_state(self.obs)
+            self.s_t1 = self.process_state(self.obs)
 
             self.r_t = self.agent.shape_reward(self.r_t,
                                                self.misc,
