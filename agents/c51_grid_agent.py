@@ -60,7 +60,7 @@ class C51GridAgent:
             self.state_size, self.num_atoms,
             self.action_size,
             self.agent.learning_rate)
-        self.agent.load_model("models/c51_ddqn.h5")
+        # self.agent.load_model("models/c51_ddqn.h5")
         self.agent.target_model = Networks.value_distribution_network(
             self.state_size, self.num_atoms,
             self.action_size,
@@ -120,11 +120,11 @@ class C51GridAgent:
 
         self.misc = {'sum_reward': 0}
 
-        int_states = [2]
-        states = np.zeros((len(int_states), self.action_size, self.num_atoms))
-        for s in range(len(int_states)):
-            states[s] = self.agent.predict(self.process_state(s))[0]
-        self.agent.plot_policy(states)
+        # int_states = [2]
+        # states = np.zeros((len(int_states), self.action_size, self.num_atoms))
+        # for s in range(len(int_states)):
+        #     states[s] = self.agent.predict(self.process_state(s))[0]
+        # self.agent.plot_policy(states)
 
 
         while not self.is_terminated:
@@ -140,12 +140,12 @@ class C51GridAgent:
             self.a_t = np.zeros([self.action_size])
 
             # sleep(0.1)
-            print("st:", self.s_t1)
-            self.env.render()
-            self.agent.plot_histogram(self.s_t1)
+            # print("st:", self.s_t1)
+            # self.env.render()
+            # self.agent.plot_histogram(self.s_t1)
 
-            self.action_idx = input("action")
-            # self.action_idx = self.agent.get_action(self.s_t)
+            # self.action_idx = input("action")
+            self.action_idx = self.agent.get_action(self.s_t)
             # self.action_idx = self.agent.get_action(self.s_t, current_budget)
 
             self.a_t[self.action_idx] = 1
@@ -192,8 +192,8 @@ class C51GridAgent:
                                          self.t)
 
             # Do the training
-            if self.t > self.agent.observe and self.t % self.agent.timestep_per_train == 0:
-                self.loss = self.agent.train_replay()
+            # if self.t > self.agent.observe and self.t % self.agent.timestep_per_train == 0:
+            #     self.loss = self.agent.train_replay()
 
             self.s_t = self.s_t1
             self.t += 1
