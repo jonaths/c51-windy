@@ -120,11 +120,19 @@ class C51GridAgent:
 
         self.misc = {'sum_reward': 0}
 
-        int_states = [2]
-        states = np.zeros((len(int_states), self.action_size, self.num_atoms))
+        int_states = [1, 2, 3]
+        predictions = []
+        qs = []
         for s in range(len(int_states)):
-            states[s] = self.agent.predict(self.process_state(s))[0]
-        self.agent.plot_policy(states)
+            print(s)
+            prediction = self.agent.predict(self.process_state(int_states[s]))
+            predictions.append(prediction[0])
+            qs.append(prediction[1])
+        predictions = np.array(predictions)
+        qs = np.array(qs)
+
+
+        self.agent.plot_policy(predictions, qs, int_states)
 
 
         while not self.is_terminated:
