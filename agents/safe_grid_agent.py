@@ -9,9 +9,9 @@ from keras.utils import to_categorical
 from time import sleep
 import sys
 
-from lib.c51 import C51Agent
+from helpers.c51 import C51Agent
 
-from lib.networks import Networks
+from helpers.networks import Networks
 
 import gym
 import gym_windy

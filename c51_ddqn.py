@@ -11,7 +11,7 @@ from lib.networks import Networks
 from skimage import transform, color
 from vizdoom import *
 
-from agents.lib.c51 import C51Agent
+from agents.helpers.c51 import C51Agent
 
 
 def preprocessImg(img, size):

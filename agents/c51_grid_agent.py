@@ -9,9 +9,9 @@ from keras.utils import to_categorical
 import sys
 from time import sleep
 
-from lib.c51 import C51Agent
+from helpers.c51 import C51Agent
 
-from lib.networks import Networks
+from helpers.networks import Networks
 
 import gym
 import gym_windy
@@ -157,9 +157,9 @@ class C51GridAgent:
             self.env.render()
             self.agent.plot_histogram(self.s_t1)
 
-            self.action_idx = input("action")
+            # self.action_idx = input("action")
             # self.action_idx = self.agent.get_action(self.s_t)
-            # self.action_idx = self.agent.get_action(self.s_t, current_budget)
+            self.action_idx = self.agent.get_action(self.s_t, current_budget)
 
             self.a_t[self.action_idx] = 1
             self.obs, self.r_t, self.done, self.misc = self.env.step(self.action_idx)
