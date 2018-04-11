@@ -108,6 +108,23 @@ class C51GridAgent:
 
         return s_t1
 
+    def plot_policy(self, int_states=[1, 2, 3]):
+        """
+        Makes plot policies for all actions and states  int_states
+        :return:
+        """
+        predictions = []
+        qs = []
+        for s in range(len(int_states)):
+            # creates a prediction to plot policies
+            prediction = self.agent.predict(self.process_state(int_states[s]))
+            predictions.append(prediction[0])
+            qs.append(prediction[1])
+        # fills arrays
+        predictions = np.array(predictions)
+        qs = np.array(qs)
+        self.agent.plot_policy(predictions, qs, int_states)
+
 
     def run_episode(self, b=0):
         """
@@ -120,19 +137,7 @@ class C51GridAgent:
 
         self.misc = {'sum_reward': 0}
 
-        int_states = [1, 2, 3]
-        predictions = []
-        qs = []
-        for s in range(len(int_states)):
-            print(s)
-            prediction = self.agent.predict(self.process_state(int_states[s]))
-            predictions.append(prediction[0])
-            qs.append(prediction[1])
-        predictions = np.array(predictions)
-        qs = np.array(qs)
-
-
-        self.agent.plot_policy(predictions, qs, int_states)
+        self.plot_policy()
 
 
         while not self.is_terminated:
