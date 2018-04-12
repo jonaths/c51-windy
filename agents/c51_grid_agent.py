@@ -143,8 +143,7 @@ class C51GridAgent:
 
         self.misc = {'sum_reward': 0}
 
-        self.plot_policy()
-
+        # self.plot_policy()
 
         while not self.is_terminated:
 
@@ -218,9 +217,9 @@ class C51GridAgent:
             self.t += 1
 
             # save progress every 10000 iterations
-            if self.t % 1000 == 0:
-                print("Now we save model")
-                self.agent.model.save_weights("models/c51_ddqn.h5", overwrite=True)
+            # if self.t % 1000 == 0:
+            #     print("Now we save model")
+            #     self.agent.model.save_weights("models/c51_ddqn.h5", overwrite=True)
 
             # print info
 

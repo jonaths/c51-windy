@@ -143,7 +143,8 @@ class C51Agent:
             ax[i].set_ylabel('S' + str(states_labels[i]))
         fig.tight_layout()
         plt.subplots_adjust(top=0.92)
-        plt.savefig('results/policy_safe.png')
+        # plt.savefig('results/policy_safe.png')
+        plt.show()
 
         # q and modified q policy ----------------------------------------------
         fig, ax = plt.subplots(nrows=3, ncols=2, sharex=True, sharey=True)
@@ -159,7 +160,8 @@ class C51Agent:
         ax[0, 0].set_title('Q')
         ax[0, 1].set_title('Modified Q')
         fig.tight_layout()
-        plt.savefig('results/policy_q.png')
+        # plt.savefig('results/policy_q.png')
+        plt.show()
 
         input("XXX")
 
@@ -174,7 +176,8 @@ class C51Agent:
         # get the index of the first bin where v is larger than -b
         index = np.searchsorted(self.z, -budget) - 1
         # get the value for a specific budget
-        budget_q = budget_q[:, index]
+        # budget_q = budget_q[:, index]
+        budget_q = prob_live_given_b[:, index]
 
         # action_id is the max arg of the modified q value
         action_idx = np.argmax(budget_q)

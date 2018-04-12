@@ -33,7 +33,7 @@ class Experimenter:
     Runs an experiment until Done is set to true by ai gym using an agent
     """
 
-    def __init__(self, num_experiments=100, max_episodes=15, init_b=2):
+    def __init__(self, num_experiments=1000, max_episodes=15, init_b=2):
         self.num_experiments = num_experiments
         self.max_episodes = max_episodes
         self.init_b = init_b
@@ -81,20 +81,22 @@ if __name__ == "__main__":
         agent.run_episode(4)
 
     # budgets = [0, 2, 4, 8]
-    # fig_avg, axs_avg = plt.subplots(nrows=len(budgets))
-    # fig_failure, axs_failure = plt.subplots(nrows=len(budgets))
+    # fig_avg, axs_avg = plt.subplots(nrows=len(budgets), sharex=True, sharey=True)
+    # fig_failure, axs_failure = plt.subplots(nrows=len(budgets), sharex=True, sharey=True)
     #
     # for b in range(len(budgets)):
-    #
-    #
     #
     #     print(str(budgets[b])+" ==============================================")
     #
     #     exp = Experimenter(init_b=budgets[b])
     #
     #     # safe_results, _ = exp.run(agent=SafeGridAgent())
-    #     c51_results, _ = exp.run(agent=C51GridAgent())
+    #     # c51_results, _ = exp.run(agent=C51GridAgent())
     #     # risky_results, _ = exp.run(agent=RiskyGridAgent())
+    #
+    #     safe_results = np.load('results/safe_' + str(b) + '.npy')
+    #     c51_results = np.load('results/c51_' + str(b) + '.npy')
+    #     risky_results = np.load('results/risky_' + str(b) + '.npy')
     #
     #     # print("safe")
     #     # print(safe_results)
@@ -103,22 +105,28 @@ if __name__ == "__main__":
     #     # print("risky")
     #     # print(risky_results)
     #
-    #     # np.save('results/safe_'+str(b)+'.npy', safe_results)
+    #     np.save('results/safe_'+str(b)+'.npy', safe_results)
     #     np.save('results/c51_' + str(b) + '.npy', c51_results)
-    #     # np.save('results/risky_' + str(b) + '.npy', risky_results)
+    #     np.save('results/risky_' + str(b) + '.npy', risky_results)
     #
-    #     # plot_avg_std(axs_avg[b], safe_results, 'b='+str(budgets[b]), '-', label="safe", errorevery=5)
-    #     plot_avg_std(axs_avg[b], c51_results, 'b=' + str(budgets[b]), '-.', label="r")
-    #     # plot_avg_std(axs_avg[b], risky_results, 'b='+str(budgets[b]), ':', label="risky", errorevery=4)
+    #     ax = plot_avg_std(axs_avg[b], safe_results, 'b0='+str(budgets[b]), '-', label="safe", errorevery=5)
+    #     ax = plot_avg_std(axs_avg[b], c51_results, 'b0=' + str(budgets[b]), '-.', label="r")
+    #     ax = plot_avg_std(axs_avg[b], risky_results, 'b0='+str(budgets[b]), ':', label="risky", errorevery=4)
+    #
     #     plt.legend()
     #
-    #     # plot_failure_rate(axs_failure[b], safe_results, 'b='+str(budgets[b]), '-')
-    #     plot_failure_rate(axs_failure[b], c51_results, 'b=' + str(budgets[b]), '-.')
-    #     # plot_failure_rate(axs_failure[b], risky_results, 'b='+str(budgets[b]), ':')
+    #     ax = plot_failure_rate(axs_failure[b], safe_results, 'b0='+str(budgets[b]), '-')
+    #     ax = plot_failure_rate(axs_failure[b], c51_results, 'b0=' + str(budgets[b]), '-.')
+    #     ax = plot_failure_rate(axs_failure[b], risky_results, 'b0='+str(budgets[b]), ':')
+    #
     #     plt.legend()
     #
     # fig_avg.suptitle('Average final budget per episode')
     # fig_failure.suptitle('Failure count per experiment')
+    #
+    # fig_avg.tight_layout()
+    # fig_failure.tight_layout()
+    #
     #
     #
     # plt.show()
