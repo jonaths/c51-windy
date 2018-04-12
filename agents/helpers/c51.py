@@ -125,6 +125,9 @@ class C51Agent:
         # calculates prob of being alive and the action with the largest prob
         prob_max_args = np.argmax(1 - np.cumsum(states_z_concat, axis=2),
                                   axis=1)
+
+        sys.exit(0)
+
         num_states = prob_max_args.shape[0]
 
         # plots safe policy ----------------------------------------------------
@@ -164,19 +167,13 @@ class C51Agent:
         # value
         z_concat, q, budget_q, prob_live_given_b = self.predict(state)
 
-        print("b", str(budget))
-
         # get the index of the first bin where v is larger than -b
         index = np.searchsorted(self.z, -budget) - 1
-        print(budget_q[:, index])
 
         budget_q = budget_q[:, index]
 
         # action_id is the max arg of the modified q value
         action_idx = np.argmax(budget_q)
-        print(action_idx)
-
-        sys.exit(0)
 
         misc = {
             'q': q, 'prob_live_given_b': prob_live_given_b,
@@ -209,6 +206,8 @@ class C51Agent:
         expected_value_of_alive = 2.74
 
         # list comprehension to calculate budget_q
+        # reshaping is to convert a n actions by num_atoms array into a
+        # num_atoms by n actions array
         budget_q = [q + prob * expected_value_of_alive * self.gamma_episode / (
             1 - self.gamma_episode) for prob in
                     prob_live_given_b.reshape(self.num_atoms, -1)]
