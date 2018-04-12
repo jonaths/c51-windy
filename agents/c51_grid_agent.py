@@ -115,15 +115,21 @@ class C51GridAgent:
         """
         predictions = []
         qs = []
+        budget_qs = []
+        probs_of_alive = []
         for s in range(len(int_states)):
             # creates a prediction to plot policies
             prediction = self.agent.predict(self.process_state(int_states[s]))
             predictions.append(prediction[0])
             qs.append(prediction[1])
+            budget_qs.append(prediction[2])
+            probs_of_alive.append(prediction[3])
         # fills arrays
         predictions = np.array(predictions)
         qs = np.array(qs)
-        self.agent.plot_policy(predictions, qs, int_states)
+        budget_qs = np.array(budget_qs)
+        probs_of_alive = np.array(probs_of_alive)
+        self.agent.plot_policy(int_states, predictions, qs, budget_qs, probs_of_alive)
 
 
     def run_episode(self, b=0):
@@ -157,9 +163,9 @@ class C51GridAgent:
             self.env.render()
             self.agent.plot_histogram(self.s_t1)
 
-            # self.action_idx = input("action")
+            self.action_idx = input("action")
             # self.action_idx = self.agent.get_action(self.s_t)
-            self.action_idx = self.agent.get_action(self.s_t, current_budget)
+            # self.action_idx = self.agent.get_action(self.s_t, current_budget)
 
             self.a_t[self.action_idx] = 1
             self.obs, self.r_t, self.done, self.misc = self.env.step(self.action_idx)

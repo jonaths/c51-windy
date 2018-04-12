@@ -113,7 +113,7 @@ class C51Agent:
 
         return action_idx
 
-    def plot_policy(self, states_z_concat, qs, states_labels):
+    def plot_policy(self, states_labels, states_z_concat, qs, budget_qs, probs_of_alive):
         """
         Creates a policy plot for c51 for any given budget in the support
         :param states_z_concat: z predictions. Shape (states, actions, num_atoms)
@@ -123,12 +123,14 @@ class C51Agent:
         """
 
         # calculates prob of being alive and the action with the largest prob
-        prob_max_args = np.argmax(1 - np.cumsum(states_z_concat, axis=2),
-                                  axis=1)
+        maxarg_probs_of_alive = np.argmax(probs_of_alive, axis=1)
+        print(maxarg_probs_of_alive.shape)
+        maxarg_budget_qs = np.argmax(budget_qs, axis=1)
+        print(maxarg_budget_qs.shape)
+        maxarg_qs = np.argmax(qs, axis=1)
+        print(maxarg_qs.shape)
 
-        sys.exit(0)
-
-        num_states = prob_max_args.shape[0]
+        num_states = maxarg_probs_of_alive.shape[0]
 
         # plots safe policy ----------------------------------------------------
         fig, ax = plt.subplots(nrows=3, sharex=True, sharey=True)
@@ -136,8 +138,8 @@ class C51Agent:
 
         for i in range(num_states):
             print(i, states_labels[i])
-            ax[i].plot(self.z, prob_max_args[i, ::-1], color='gray',
-                       marker='.', linestyle='None')
+            ax[i].plot(self.z, maxarg_probs_of_alive[i, ::-1], linestyle='None', marker='.')
+            ax[i].plot(self.z, maxarg_budget_qs[i, ::-1], linestyle='None')
             ax[i].set_ylabel('S' + str(states_labels[i]))
         fig.tight_layout()
         plt.subplots_adjust(top=0.92)
@@ -159,6 +161,8 @@ class C51Agent:
         fig.tight_layout()
         plt.savefig('results/policy_q.png')
 
+        input("XXX")
+
     def get_optimal_action(self, state, budget=4.0, rp=0.00):
         """Get optimal action for a state accounting for budget and
         the probability of running out of it. As Michael proposed.
@@ -169,7 +173,7 @@ class C51Agent:
 
         # get the index of the first bin where v is larger than -b
         index = np.searchsorted(self.z, -budget) - 1
-
+        # get the value for a specific budget
         budget_q = budget_q[:, index]
 
         # action_id is the max arg of the modified q value
@@ -217,14 +221,21 @@ class C51Agent:
         return z_concat, q, budget_q, prob_live_given_b
 
     def plot_histogram(self, state, verbose=True):
-        z_concat, q, _, _ = self.predict(state)
+        z_concat, q, budget_q, prob_live_given_b = self.predict(state)
         if verbose:
             print("=q")
             print(q)
             action_idx = np.argmax(q)
             print("=q_arg_max")
             print(action_idx)
-        self.real_time_plotter.update(np.array(self.z), z_concat)
+        self.real_time_plotter.update(
+            np.array(self.z),
+            [
+                z_concat,
+                budget_q,
+                prob_live_given_b,
+                np.stack(([q] * self.num_atoms), axis=1)
+            ])
 
     def shape_reward(self, r_t, misc, prev_misc, t, is_terminated):
 

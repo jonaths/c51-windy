@@ -30,8 +30,8 @@ class PlotHistogramRT:
         new_y = np.asarray(new_y)
 
         # valida que las medidas nuevas sean las mismas que las establecidas en el constructor
-        if new_y.shape[0] != self.series_number \
-                or new_y.shape[1] != self.bins \
+        if new_y.shape[1] != self.series_number \
+                or new_y.shape[2] != self.bins \
                 or new_x.shape[0] != self.bins:
             raise ValueError('Incorrect new_y or new_x shape')
 
@@ -40,28 +40,40 @@ class PlotHistogramRT:
         fig = plt.figure(self.this_fig_num)
         plt.clf()
 
-        ax1 = plt.subplot(3, 1, 1)
-        for ind in range(len(new_y)):
-            plt.bar(new_x, new_y[ind], width=self.width, label=self.label_names[ind])
+        ax1 = plt.subplot(4, 1, 1)
+        for ind in range(len(new_y[0])):
+            plt.bar(new_x, new_y[0][ind], width=self.width, label=self.label_names[ind])
         plt.grid(True)
         plt.ylabel('c51')
 
-        ax2 = plt.subplot(3, 1, 2)
-        for ind in range(len(new_y)):
-            plt.plot(new_x, np.cumsum(new_y[ind]),
+        ax2 = plt.subplot(4, 1, 2)
+        for ind in range(len(new_y[0])):
+            plt.plot(new_x, np.cumsum(new_y[0][ind]),
                     label=self.label_names[ind])
         plt.grid(True)
         plt.ylabel('CDF')
 
         # prob of alive given b
-        ax3 = plt.subplot(3, 1, 3)
-        for ind in range(len(new_y)):
-            plt.plot(-1 * new_x, 1 - np.cumsum(new_y[ind]),
+        ax3 = plt.subplot(4, 1, 3)
+        for ind in range(len(new_y[0])):
+            plt.plot(-1 * new_x, new_y[2][ind],
                      label=self.label_names[ind])
         plt.grid(True)
         plt.ylabel('Pr(A|B)')
-
         plt.legend()
+
+        ax3_a = plt.subplot(4, 1, 4)
+        ax3_b = ax3_a.twinx()
+        for ind in range(len(new_y[0])):
+            # modified q values
+            ax3_b.plot(-1 * new_x, new_y[3][ind], linestyle='--')
+            ax3_b.set_ylabel('Q')
+            # q values
+            ax3_a.plot(-1 * new_x, new_y[1][ind])
+            ax3_a.set_ylabel('Budget Q')
+        plt.grid(True)
+
+
 
         fig.canvas.draw()
         plt.tight_layout(pad=0.4, w_pad=0.4, h_pad=0.4)
