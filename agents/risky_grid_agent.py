@@ -27,6 +27,9 @@ class RiskyGridAgent:
         self.env.reset()
         self.is_terminated = False
 
+    def reset(self):
+        pass
+
     def run_episode(self, b=0):
         """
         Corre un episodio hasta que ai-gym regresa una bandera done=True.

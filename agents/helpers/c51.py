@@ -176,11 +176,19 @@ class C51Agent:
         # get the index of the first bin where v is larger than -b
         index = np.searchsorted(self.z, -budget) - 1
         # get the value for a specific budget
-        # budget_q = budget_q[:, index]
-        budget_q = prob_live_given_b[:, index]
+        budget_q = budget_q[:, index]
+        # budget_q = prob_live_given_b[:, index]
 
         # action_id is the max arg of the modified q value
         action_idx = np.argmax(budget_q)
+
+        print("debug")
+        print(state)
+        print("b:", budget)
+        print("q:", q)
+        print(budget_q)
+        # print(prob_live_given_b)
+        print("action_idx", action_idx)
 
         misc = {
             'q': q, 'prob_live_given_b': prob_live_given_b,
@@ -210,7 +218,7 @@ class C51Agent:
 
         # expected value of being alive? what to put here
         # TODO: poner valor aqui de forma no manual
-        expected_value_of_alive = 2.74
+        expected_value_of_alive = 69.6977019
 
         # list comprehension to calculate budget_q
         # reshaping is to convert a n actions by num_atoms array into a

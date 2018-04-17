@@ -67,12 +67,14 @@ class C51GridAgent:
             self.agent.learning_rate)
 
         self.data = range(self.img_rows * self.img_cols)
-        self.x_t = np.reshape(to_categorical(self.data)[0], (self.img_rows, self.img_cols))
+
+        self.init_obs = 2
+        self.x_t = np.reshape(to_categorical(self.data)[self.init_obs],
+                              (self.img_rows, self.img_cols))
         self.s_t = np.stack(([self.x_t] * self.img_channels), axis=0)
         self.s_t = np.rollaxis(self.s_t, 0, 3)
         self.s_t = np.expand_dims(self.s_t, axis=0)
         self.s_t1 = self.s_t
-        # print(s_t)
 
         self.is_terminated = False
 
@@ -85,7 +87,6 @@ class C51GridAgent:
         self.life = 0
         self.state = ""
 
-
         # Buffer to compute rolling statistics
         self.final_state_buffer, self.reward_buffer, self.steps_buffer = [], [], []
 
@@ -97,7 +98,7 @@ class C51GridAgent:
         :return:
         """
         x_t1 = np.reshape(to_categorical(self.data)[obs],
-                               (self.img_rows, self.img_cols))
+                          (self.img_rows, self.img_cols))
         x_t1 = np.reshape(x_t1, (1, self.img_rows, self.img_cols, 1))
 
         # considera historial en un canal
@@ -129,8 +130,18 @@ class C51GridAgent:
         qs = np.array(qs)
         budget_qs = np.array(budget_qs)
         probs_of_alive = np.array(probs_of_alive)
-        self.agent.plot_policy(int_states, predictions, qs, budget_qs, probs_of_alive)
+        self.agent.plot_policy(int_states, predictions, qs, budget_qs,
+                               probs_of_alive)
 
+    def reset(self):
+        self.data = range(self.img_rows * self.img_cols)
+        self.x_t = np.reshape(to_categorical(self.data)[self.init_obs],
+                              (self.img_rows, self.img_cols))
+        self.s_t = np.stack(([self.x_t] * self.img_channels), axis=0)
+        self.s_t = np.rollaxis(self.s_t, 0, 3)
+        self.s_t = np.expand_dims(self.s_t, axis=0)
+
+        self.is_terminated = False
 
     def run_episode(self, b=0):
         """
@@ -158,22 +169,23 @@ class C51GridAgent:
             self.a_t = np.zeros([self.action_size])
 
             # sleep(0.1)
-            print("st:", self.s_t1)
-            self.env.render()
-            self.agent.plot_histogram(self.s_t1)
+            # print("st")
+            # print(self.s_t)
+            # self.env.render()
+            # self.agent.plot_histogram(self.s_t1)
 
-            self.action_idx = input("action")
+            # self.action_idx = input("action")
             # self.action_idx = self.agent.get_action(self.s_t)
-            # self.action_idx = self.agent.get_action(self.s_t, current_budget)
+            self.action_idx = self.agent.get_action(self.s_t, current_budget)
 
             self.a_t[self.action_idx] = 1
-            self.obs, self.r_t, self.done, self.misc = self.env.step(self.action_idx)
+            self.obs, self.r_t, self.done, self.misc = self.env.step(
+                self.action_idx)
             self.is_terminated = self.done
 
             # print("misc")
             # print(self.misc)
-            print("obs")
-            print(self.obs)
+            print("obs:", str(self.obs))
 
             if self.is_terminated:
 
@@ -181,7 +193,8 @@ class C51GridAgent:
                     self.max_life = self.life
 
                 self.GAME += 1
-                self.final_state_buffer.append(0 if self.misc['step_seq'][-1] == 8 else 1)
+                self.final_state_buffer.append(
+                    0 if self.misc['step_seq'][-1] == 8 else 1)
                 self.steps_buffer.append(len(self.misc['step_seq']))
                 self.reward_buffer.append(self.misc['sum_reward'])
                 self.env.reset()
@@ -204,10 +217,10 @@ class C51GridAgent:
 
             # save the sample <s, a, r, s'> to the replay memory and decrease epsilon
             self.agent.replay_memory(self.s_t,
-                                         self.action_idx,
-                                         self.r_t, self.s_t1,
-                                         self.is_terminated,
-                                         self.t)
+                                     self.action_idx,
+                                     self.r_t, self.s_t1,
+                                     self.is_terminated,
+                                     self.t)
 
             # Do the training
             if self.t > self.agent.observe and self.t % self.agent.timestep_per_train == 0:
