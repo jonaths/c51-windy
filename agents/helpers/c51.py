@@ -107,11 +107,11 @@ class C51Agent:
         else:
             # selects the action
             # action_idx = self.get_optimal_action(state)
-            action_idx, _ = self.get_optimal_action(state=state, budget=b)
+            action_idx, misc = self.get_optimal_action(state=state, budget=b)
 
             # plots the policy for every possible budget (support)
 
-        return action_idx
+        return action_idx, misc
 
     def plot_policy(self, states_labels, states_z_concat, qs, budget_qs, probs_of_alive):
         """
@@ -186,13 +186,21 @@ class C51Agent:
         print(state)
         print("b:", budget)
         print("q:", q)
-        print(budget_q)
+        print("b_q", budget_q)
         # print(prob_live_given_b)
         print("action_idx", action_idx)
 
         misc = {
-            'q': q, 'prob_live_given_b': prob_live_given_b,
-            'budget_q': budget_q, 'z_concat': z_concat
+            # original q values per action
+            'q': q,
+            # prob ot alive for each action for each bin
+            'prob_live_given_b': prob_live_given_b,
+            # modified q values per action
+            'budget_q': budget_q,
+            # stacked probabilities per action
+            'z_concat': z_concat,
+            # index where b is larger than current b
+            'index': index
         }
 
         return action_idx, misc

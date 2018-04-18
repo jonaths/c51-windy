@@ -83,7 +83,7 @@ class Experimenter:
                       "steps:", str(num_steps)
                 )
                 print(result)
-                if num_steps > 2:
+                if num_steps > 4:
                     sys.exit(0)
                 # adds current reward to total experiment budget
                 b += result['sum_reward']
