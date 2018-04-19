@@ -226,7 +226,8 @@ class C51Agent:
 
         # expected value of being alive? what to put here
         # TODO: poner valor aqui de forma no manual
-        expected_value_of_alive = 69.6977019
+        # expected_value_of_alive = 69.6977019
+        expected_value_of_alive = np.max(q)
 
         # list comprehension to calculate budget_q
         # reshaping is to convert a n actions by num_atoms array into a

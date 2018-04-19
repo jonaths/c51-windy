@@ -25,7 +25,7 @@ def plot_trajectories(ax, results, title, label=None):
     ax.set_title(title)
     return ax.plot(
         range(results.shape[1]),
-        np.transpose(results[np.random.choice(len(results), size=10, replace=False)]),
+        np.transpose(results[np.random.choice(len(results), size=50, replace=False)]),
         label=label
     )
 
@@ -41,7 +41,7 @@ class Experimenter:
     Runs an experiment until Done is set to true by ai gym using an agent
     """
 
-    def __init__(self, num_experiments=100, max_episodes=10, init_b=2):
+    def __init__(self, num_experiments=100, max_episodes=100, init_b=2):
         self.num_experiments = num_experiments
         self.max_episodes = max_episodes
         self.init_b = init_b
