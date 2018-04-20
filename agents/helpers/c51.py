@@ -180,7 +180,8 @@ class C51Agent:
         # budget_q = prob_live_given_b[:, index]
 
         # action_id is the max arg of the modified q value
-        action_idx = np.argmax(budget_q)
+        # action_idx = np.argmax(budget_q)
+        action_idx = np.argmax(q)
 
         print("debug")
         print(state)
