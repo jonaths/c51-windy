@@ -11,4 +11,6 @@ print(b)
 print(b.shape)
 c = a + b
 print(c)
-print(np.flip(c,1))
+
+test = np.transpose(np.where(c == 3))
+print(test)
