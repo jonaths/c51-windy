@@ -4,6 +4,7 @@ from __future__ import print_function
 import math
 import random
 from collections import deque
+import pandas as pd
 
 import sys
 from plot_histogram import PlotHistogramRT
@@ -113,7 +114,8 @@ class C51Agent:
 
         return action_idx, misc
 
-    def plot_policy(self, states_labels, states_z_concat, qs, budget_qs, probs_of_alive):
+    def plot_policy(self, states_labels, states_z_concat, qs, budget_qs,
+                    probs_of_alive):
         """
         Creates a policy plot for c51 for any given budget in the support
         :param states_z_concat: z predictions. Shape (states, actions, num_atoms)
@@ -138,7 +140,8 @@ class C51Agent:
 
         for i in range(num_states):
             print(i, states_labels[i])
-            ax[i].plot(self.z, maxarg_probs_of_alive[i, ::-1], linestyle='None', marker='.')
+            ax[i].plot(self.z, maxarg_probs_of_alive[i, ::-1], linestyle='None',
+                       marker='.')
             ax[i].plot(self.z, maxarg_budget_qs[i, ::-1], linestyle='None')
             ax[i].set_ylabel('S' + str(states_labels[i]))
         fig.tight_layout()
@@ -174,21 +177,20 @@ class C51Agent:
         z_concat, q, budget_q, prob_live_given_b = self.predict(state)
 
         # get the index of the first bin where v is larger than -b
-        index = np.searchsorted(self.z, -budget) - 1
+        index = np.searchsorted(self.z, budget) - 1
         # get the value for a specific budget
         budget_q = budget_q[:, index]
         # budget_q = prob_live_given_b[:, index]
 
         # action_id is the max arg of the modified q value
-        # action_idx = np.argmax(budget_q)
-        action_idx = np.argmax(q)
+        action_idx = np.argmax(budget_q)
+        # action_idx = np.argmax(q)
 
         print("debug")
         print(state)
         print("b:", budget)
         print("q:", q)
         print("b_q", budget_q)
-        # print(prob_live_given_b)
         print("action_idx", action_idx)
 
         misc = {
@@ -220,24 +222,36 @@ class C51Agent:
         q = np.sum(np.multiply(z_concat, np.array(self.z)), axis=1)
 
         # prob of dead for all budgets
-        prob_dead_given_b = np.cumsum(z_concat, 1)
+        prob_dead = np.cumsum(z_concat, 1)
 
         # prob of being alive is 1 - prob of being dead
-        prob_live_given_b = 1. - prob_dead_given_b
+        prob_live = 1. - prob_dead
+
+        prob_live_given_b = np.flip(prob_live, 1)
 
         # expected value of being alive? what to put here
         # TODO: poner valor aqui de forma no manual
-        # expected_value_of_alive = 69.6977019
-        expected_value_of_alive = np.max(q)
+        expected_value_of_alive = 4.58345599
+        # expected_value_of_alive = np.max(q)
 
-        # list comprehension to calculate budget_q
-        # reshaping is to convert a n actions by num_atoms array into a
-        # num_atoms by n actions array
-        budget_q = [q + prob * expected_value_of_alive * self.gamma_episode / (
-            1 - self.gamma_episode) for prob in
-                    prob_live_given_b.reshape(self.num_atoms, -1)]
-        # previous step changes the shape, this step leaves the shape as before
-        budget_q = np.array(budget_q).reshape(-1, self.num_atoms)
+        q_array = np.stack(([q] * self.num_atoms), axis=1)
+        budget_q = q_array + prob_live_given_b * expected_value_of_alive \
+            * self.gamma_episode / (1 - self.gamma_episode)
+
+        # print(q_array)
+        # q_array.tofile('q_array.csv', sep=',', format='%10.5f')
+        # print(prob_live_given_b)
+        # prob_live_given_b.tofile('prob_live_given_b.csv', sep=',', format='%10.5f')
+        # print(budget_q)
+        # budget_q.tofile('budget_q.csv', sep=',', format='%10.5f')
+
+        # budget_q = [q + prob * expected_value_of_alive * self.gamma_episode / (
+        #     1 - self.gamma_episode) for prob in
+        #             prob_live_given_b.reshape(self.num_atoms, -1)]
+        # # previous step changes the shape, this step leaves the shape as before
+        # budget_q = np.array(budget_q).reshape(-1, self.num_atoms)
+        # print(budget_q.shape)
+        # sys.exit(0)
 
         return z_concat, q, budget_q, prob_live_given_b
 
@@ -281,7 +295,7 @@ class C51Agent:
         self.memory.append((s_t, action_idx, r_t, s_t1, is_terminated))
         if self.epsilon > self.final_epsilon and t > self.observe:
             self.epsilon -= (
-                            self.initial_epsilon - self.final_epsilon) / self.explore
+                                self.initial_epsilon - self.final_epsilon) / self.explore
 
         if len(self.memory) > self.max_memory:
             self.memory.popleft()
@@ -340,9 +354,9 @@ class C51Agent:
                     bj = (Tz - self.v_min) / self.delta_z
                     m_l, m_u = math.floor(bj), math.ceil(bj)
                     m_prob[action[i]][i][int(m_l)] += \
-                    z_[optimal_action_idxs[i]][i][j] * (m_u - bj)
+                        z_[optimal_action_idxs[i]][i][j] * (m_u - bj)
                     m_prob[action[i]][i][int(m_u)] += \
-                    z_[optimal_action_idxs[i]][i][j] * (bj - m_l)
+                        z_[optimal_action_idxs[i]][i][j] * (bj - m_l)
 
         loss = self.model.fit(state_inputs, m_prob, batch_size=self.batch_size,
                               nb_epoch=1, verbose=0)

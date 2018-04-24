@@ -177,6 +177,7 @@ class C51GridAgent:
             # self.action_idx = input("action")
             # self.action_idx = self.agent.get_action(self.s_t)
             self.action_idx, add_info = self.agent.get_action(self.s_t, current_budget)
+            # input("XXX")
 
             self.a_t[self.action_idx] = 1
             self.obs, self.r_t, self.done, self.misc = self.env.step(

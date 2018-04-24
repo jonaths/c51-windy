@@ -21,11 +21,25 @@ def plot_avg_std(ax, results, title, linestyle='-', errorevery=5, label=None):
         label=label
     )
 
+def plot_reward(ax, results, title, linestyle='-', errorevery=5, label=None):
+    print(results.shape)
+    results = np.diff(results, axis=1)
+    print(results.shape)
+    ax.set_title(title)
+    return ax.errorbar(
+        range(results.shape[1]),
+        np.average(results, 0),
+        yerr=np.std(results, 0),
+        errorevery=errorevery,
+        linestyle=linestyle,
+        label=label
+    )
+
 def plot_trajectories(ax, results, title, label=None):
     ax.set_title(title)
     return ax.plot(
         range(results.shape[1]),
-        np.transpose(results[np.random.choice(len(results), size=10, replace=False)]),
+        np.transpose(results[np.random.choice(len(results), size=1, replace=False)]),
         label=label
     )
 
@@ -41,7 +55,7 @@ class Experimenter:
     Runs an experiment until Done is set to true by ai gym using an agent
     """
 
-    def __init__(self, num_experiments=100, max_episodes=10, init_b=2):
+    def __init__(self, num_experiments=500, max_episodes=15, init_b=2):
         self.num_experiments = num_experiments
         self.max_episodes = max_episodes
         self.init_b = init_b
@@ -118,13 +132,13 @@ if __name__ == "__main__":
 
         exp = Experimenter(init_b=budgets[b])
 
-        safe_results, _ = exp.run(agent_name='safe')
-        c51_results, _ = exp.run(agent_name='c51')
-        risky_results, _ = exp.run(agent_name='risky')
+        # safe_results, _ = exp.run(agent_name='safe')
+        # c51_results, _ = exp.run(agent_name='c51')
+        # risky_results, _ = exp.run(agent_name='risky')
 
-        # safe_results = np.load('results/safe_' + str(b) + '.npy')
-        # c51_results = np.load('results/c51_' + str(b) + '.npy')
-        # risky_results = np.load('results/risky_' + str(b) + '.npy')
+        safe_results = np.load('results/safe_' + str(b) + '.npy')
+        c51_results = np.load('results/c51_' + str(b) + '.npy')
+        risky_results = np.load('results/risky_' + str(b) + '.npy')
 
         # print("safe")
         # print(safe_results)
@@ -133,15 +147,15 @@ if __name__ == "__main__":
         # print("risky")
         # print(risky_results)
 
-        # np.save('results/safe_'+str(b)+'.npy', safe_results)
-        # np.save('results/c51_' + str(b) + '.npy', c51_results)
-        # np.save('results/risky_' + str(b) + '.npy', risky_results)
+        np.save('results/safe_'+str(b)+'.npy', safe_results)
+        np.save('results/c51_' + str(b) + '.npy', c51_results)
+        np.save('results/risky_' + str(b) + '.npy', risky_results)
 
-        # ax = plot_avg_std(axs_avg[b], safe_results, 'b0='+str(budgets[b]), '-', label="safe", errorevery=5)
-        # ax = plot_avg_std(axs_avg[b], c51_results, 'b0=' + str(budgets[b]), '-.', label="r")
-        # ax = plot_avg_std(axs_avg[b], risky_results, 'b0='+str(budgets[b]), ':', label="risky", errorevery=4)
+        ax = plot_avg_std(axs_avg[b], safe_results, 'b0='+str(budgets[b]), '-', label="safe", errorevery=5)
+        ax = plot_avg_std(axs_avg[b], c51_results, 'b0=' + str(budgets[b]), '-.', label="r")
+        ax = plot_avg_std(axs_avg[b], risky_results, 'b0='+str(budgets[b]), ':', label="risky", errorevery=4)
 
-        ax = plot_trajectories(axs_avg[b], c51_results, 'b0=' + str(budgets[b]), label="r")
+        # ax = plot_trajectories(axs_avg, c51_results, 'b0=' + str(budgets[b]), label="r")
 
 
         plt.legend()

@@ -56,51 +56,26 @@ class PlotHistogramRT:
         # prob of alive given b
         ax3 = plt.subplot(4, 1, 3)
         for ind in range(len(new_y[0])):
-            plt.plot(-1 * new_x, new_y[2][ind],
+            plt.plot(+1 * new_x, new_y[2][ind],
                      label=self.label_names[ind])
         plt.grid(True)
         plt.ylabel('Pr(A|B)')
         plt.legend()
 
-        ax3_a = plt.subplot(4, 1, 4)
-        ax3_b = ax3_a.twinx()
+        ax3_a = plt.subplot(4, 1, 4, sharex = ax1)
+        # ax3_b = ax3_a.twinx()
         for ind in range(len(new_y[0])):
             # modified q values
-            ax3_b.plot(-1 * new_x, new_y[3][ind], linestyle='--')
-            ax3_b.set_ylabel('Q')
+            # ax3_b.plot(-1 * new_x, new_y[3][ind], linestyle='--')
+            # ax3_b.set_ylabel('Q')
             # q values
-            ax3_a.plot(-1 * new_x, new_y[1][ind])
+            ax3_a.plot(+1 * new_x, new_y[1][ind])
             ax3_a.set_ylabel('Budget Q')
         plt.grid(True)
-
-
 
         fig.canvas.draw()
         plt.tight_layout(pad=0.4, w_pad=0.4, h_pad=0.4)
         plt.pause(0.00001)
-
-# plt.subplot(3, 1, 1)
-# plt.plot(t, mavg_reward)
-# # plt.plot(t, middle_mavg_reward)
-# # plt.plot(t, bottom_mavg_reward)
-# plt.title('Windyworld Environment behavior per 1000 episodes')
-# plt.ylabel('Average reward')
-#
-# plt.subplot(3, 1, 2)
-# plt.plot(t, mavg_steps)
-# # plt.plot(t, middle_mavg_steps)
-# # plt.plot(t, bottom_mavg_steps)
-# plt.ylabel('Average steps')
-#
-# plt.subplot(3, 1, 3)
-# plt.plot(t, end_count, label='learned')
-# # plt.plot(t, middle_end_count, label='middle')
-# # plt.plot(t, bottom_end_count, label='bottom')
-# plt.xlabel('Episodes x 100')
-# plt.ylabel('Average failure')
-#
-# plt.legend()
-# plt.show()
 
 
 if __name__ == "__main__":
