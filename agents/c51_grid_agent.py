@@ -154,7 +154,7 @@ class C51GridAgent:
 
         self.misc = {'sum_reward': 0}
 
-        # self.plot_policy()
+        self.plot_policy()
 
         while not self.is_terminated:
 

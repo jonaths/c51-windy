@@ -3,14 +3,29 @@ import matplotlib.pyplot as plt
 import sys
 
 
-a = np.array([[1, 2, 2],[5,5, 1]])
+a = np.array(
+    [
+        [
+            [1., 2., 2., 1.],
+            [1., 5., 1., 7.],
+        ],
+        [
+            [4., 4., 1., 8.],
+            [1., 1., 2., 1.],
+        ],
+        [
+            [4., 2., 1., 8.],
+            [1., 1., 3., 5.],
+        ]
+    ]
+)
 print(a)
-print(a.shape)
-b = np.array([[4, 4, 1], [1, 1, 2]])
-print(b)
-print(b.shape)
-c = a + b
-print(c)
 
-test = np.transpose(np.where(c == 3))
-print(test)
+argmax = np.argmax(a, axis=1).astype(float)
+print(argmax)
+print(argmax.shape)
+mask = np.squeeze(np.diff(a, axis=1) == 0, axis=1)
+print(mask)
+
+argmax[mask] = 0.5
+print(argmax)

@@ -1,7 +1,0 @@
-PWD /media/jonathan/Data/Codigo/ai-grid
-INPUT /etc/texmf/web2c/texmf.cnf
-INPUT /usr/share/texmf/web2c/texmf.cnf
-INPUT /usr/share/texlive/texmf-dist/web2c/texmf.cnf
-INPUT /var/lib/texmf/web2c/pdftex/pdflatex.fmt
-INPUT /media/jonathan/Data/Codigo/ai-grid/plotter51.py
-OUTPUT /media/jonathan/Data/Codigo/ai-grid/plotter51.log

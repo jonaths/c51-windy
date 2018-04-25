@@ -12,6 +12,16 @@ import matplotlib.pyplot as plt
 
 import numpy as np
 
+# import matplotlib.pylab as pylab
+# params = {
+#     'legend.fontsize': 'xx-large',
+#     'axes.labelsize': 'xx-large',
+#     'axes.titlesize':'xx-large',
+#     'xtick.labelsize':'xx-large',
+#     'ytick.labelsize':'xx-large'
+#     }
+# pylab.rcParams.update(params)
+
 
 def reduce_noise(bins, reference=0.85):
     """
@@ -124,15 +134,34 @@ class C51Agent:
         :return:
         """
 
+        def equal_val_hack_for_two_actions(data):
+            """
+            For an array of shape (states, actions, bins) if bins are equal for an action
+            returns 0.5 instead of max arg.
+            :param data:
+            :return:
+            """
+            argmax = np.argmax(data, axis=1).astype(float)
+            mask = np.squeeze(np.diff(data, axis=1) == 0, axis=1)
+            argmax[mask] = 0.5
+            return argmax
+
         # calculates prob of being alive and the action with the largest prob
-        maxarg_probs_of_alive = np.argmax(probs_of_alive, axis=1)
-        print(maxarg_probs_of_alive.shape)
+
+        maxarg_probs_of_alive = equal_val_hack_for_two_actions(probs_of_alive)
+        print(probs_of_alive)
+        print(maxarg_probs_of_alive)
+
         maxarg_budget_qs = np.argmax(budget_qs, axis=1)
         print(maxarg_budget_qs.shape)
+
         maxarg_qs = np.argmax(qs, axis=1)
         print(maxarg_qs.shape)
 
         num_states = maxarg_probs_of_alive.shape[0]
+
+        print(budget_qs)
+        print(maxarg_budget_qs[1, ::-1])
 
         # plots safe policy ----------------------------------------------------
         fig, ax = plt.subplots(nrows=3, sharex=True, sharey=True)
@@ -140,31 +169,18 @@ class C51Agent:
 
         for i in range(num_states):
             print(i, states_labels[i])
-            ax[i].plot(self.z, maxarg_probs_of_alive[i, ::-1], linestyle='None',
-                       marker='.')
-            ax[i].plot(self.z, maxarg_budget_qs[i, ::-1], linestyle='None')
+            ax[i].plot(self.z, maxarg_probs_of_alive[i], label="MaxArg P(A|B)", linestyle='None', marker='.')
+            ax[i].plot(self.z, maxarg_budget_qs[i], label="MaxArg Q(B)", linestyle='None', marker='x')
             ax[i].set_ylabel('S' + str(states_labels[i]))
         fig.tight_layout()
         plt.subplots_adjust(top=0.92)
         # plt.savefig('results/policy_safe.png')
+        plt.legend()
+        plt.yticks((0, 1), ('left', 'right'))
+        plt.ylabel('Bduget')
         plt.show()
 
-        # q and modified q policy ----------------------------------------------
-        fig, ax = plt.subplots(nrows=3, ncols=2, sharex=True, sharey=True)
 
-        for i in range(num_states):
-            ax[i, 0].barh(self.action_labels, qs[i], color=['gray', 'gray'])
-            ax[i, 0].set_xlim([0, 10])
-
-        for i in range(num_states):
-            ax[i, 1].barh(self.action_labels, qs[i], color=['gray', 'gray'])
-            ax[i, 1].set_xlim([0, 10])
-
-        ax[0, 0].set_title('Q')
-        ax[0, 1].set_title('Modified Q')
-        fig.tight_layout()
-        # plt.savefig('results/policy_q.png')
-        plt.show()
 
         input("XXX")
 
