@@ -97,7 +97,7 @@ class C51Agent:
         self.var_steps = []  # Variance of Survival Time
         self.end_count = []
         self.total_reward = 0
-        self.action_labels = ['0 left', '1 right']
+        self.action_labels = ['0 left (risky)', '1 right (safe)']
         self.real_time_plotter = PlotHistogramRT(action_size, num_atoms,
                                                  self.action_labels)
 

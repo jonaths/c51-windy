@@ -22,7 +22,7 @@ class BudgetValueIterator:
     Runs an experiment until Done is set to true by ai gym using an agent
     """
 
-    def __init__(self, max_iterations=2000, init_b=2):
+    def __init__(self, max_iterations=500, init_b=2):
         self.max_iterations = max_iterations
         self.init_b = init_b
         self.v_estimates = None
@@ -64,9 +64,17 @@ class BudgetValueIterator:
         return np.max(v)
 
     def update_v(self, sample_b, val):
-        indices = self.retrieve_estimate_from_val([sample_b])
-        # position [1] is indices, index 0 because one val passed
-        self.v_estimates[indices[1][0]] = val
+
+        # print(self.budget_support[0])
+        # print(sample_b)
+        # print(self.budget_support[-1])
+
+        if self.budget_support[0] <= sample_b:
+            indices = self.retrieve_estimate_from_val([sample_b])
+            # position [1] is indices, index 0 because one val passed
+            self.v_estimates[indices[1][0]] = val
+        else:
+            print("Not updated... ")
 
     def run(self, agent_name):
 
@@ -81,7 +89,7 @@ class BudgetValueIterator:
         self.reward_support = agent.agent.z
 
         # budget support
-        self.budget_support = range(0, 21, 1)
+        self.budget_support = np.arange(0, 30, 0.5)
 
         # assume the initial values are zero
         self.v_estimates = np.zeros((len(self.budget_support)))
@@ -94,8 +102,7 @@ class BudgetValueIterator:
         v_min_thres = 0.1
 
         # repeats experiment num_experiments times
-        budgets = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
-        for b in budgets:
+        for b in self.budget_support:
             iteration = 0
             while not iteration >= self.max_iterations:
                 print(str(b), "===")
@@ -116,7 +123,7 @@ class BudgetValueIterator:
 
                 b = b + estimate
                 iteration += 1
-                if b <= 0 or b > 40:
+                if b <= 0 or b > 60:
                     b = self.init_b
 
 

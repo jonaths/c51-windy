@@ -8,5 +8,15 @@
         </list>
       </option>
     </inspection_tool>
+    <inspection_tool class="SpellCheckingInspection" enabled="false" level="TYPO" enabled_by_default="false">
+      <scope name="Project Files" level="TYPO" enabled="false">
+        <option name="processCode" value="true" />
+        <option name="processLiterals" value="true" />
+        <option name="processComments" value="true" />
+      </scope>
+      <option name="processCode" value="false" />
+      <option name="processLiterals" value="false" />
+      <option name="processComments" value="false" />
+    </inspection_tool>
   </profile>
 </component>

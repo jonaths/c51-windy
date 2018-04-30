@@ -154,7 +154,7 @@ class C51GridAgent:
 
         self.misc = {'sum_reward': 0}
 
-        self.plot_policy()
+        # self.plot_policy()
 
         while not self.is_terminated:
 
@@ -171,13 +171,13 @@ class C51GridAgent:
             # sleep(0.1)
             # print("st")
             # print(self.s_t)
-            # self.env.render()
-            # self.agent.plot_histogram(self.s_t1)
+            self.env.render()
+            self.agent.plot_histogram(self.s_t1)
 
             # self.action_idx = input("action")
             # self.action_idx = self.agent.get_action(self.s_t)
             self.action_idx, add_info = self.agent.get_action(self.s_t, current_budget)
-            # input("XXX")
+            input("XXX")
 
             self.a_t[self.action_idx] = 1
             self.obs, self.r_t, self.done, self.misc = self.env.step(
