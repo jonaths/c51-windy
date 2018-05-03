@@ -59,7 +59,7 @@ class PlotHistogramRT:
             plt.plot(+1 * new_x, new_y[2][ind],
                      label=self.label_names[ind])
         plt.grid(True)
-        plt.ylabel('Pr(A|B)')
+        plt.ylabel('Beta(b, s2, a)')
         plt.legend()
 
         ax3_a = plt.subplot(4, 1, 4, sharex = ax1)
@@ -70,7 +70,7 @@ class PlotHistogramRT:
             # ax3_b.set_ylabel('Q')
             # q values
             ax3_a.plot(+1 * new_x, new_y[1][ind])
-            ax3_a.set_ylabel('Budget Q')
+            ax3_a.set_ylabel('Vopt(s2,a|b)')
         plt.grid(True)
 
         fig.canvas.draw()

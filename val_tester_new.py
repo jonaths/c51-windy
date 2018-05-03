@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sys
 
-# from agents.c51_grid_agent import C51GridAgent, run_all
+from agents.c51_grid_agent import C51GridAgent, run_all
 # from agents.safe_grid_agent import SafeGridAgent
 # from agents.risky_grid_agent import RiskyGridAgent
 
@@ -33,28 +33,28 @@ class BudgetValueIterator:
 
     def run(self, agent_name):
 
-        # if agent_name == 'c51':
-        #     agent = C51GridAgent()
-        # else:
-        #     sys.exit(0)
+        if agent_name == 'c51':
+            agent = C51GridAgent()
+        else:
+            sys.exit(0)
 
         # retrieve learned model predictions
         # agent.reset()
-        # self.reward_z_concat, q, _, _ = agent.agent.predict(agent.s_t)
-        # self.reward_support = np.array(agent.agent.z)
+        self.reward_z_concat, q, _, _ = agent.agent.predict(agent.s_t)
+        self.reward_support = np.array(agent.agent.z)
 
         # para probar
-        self.reward_z_concat = np.array([
-            [0.5, 0.20, 0.3],
-            [1.0, 0.0, 0.0]
-        ])
-        self.reward_support = np.array(
-            [-1, 0, 1]
-        )
+        # self.reward_z_concat = np.array([
+        #     [0.1, 0.1, 0.1, 0.20, 0.5],
+        #     [0.1, 0.2, 0.2, 0.5, 0.0]
+        # ])
+        # self.reward_support = np.array(
+        #     [-2, -1, 0, 1, 2]
+        # )
 
         # en -1 acumula lo que no esta dentro del soporte
         # por eso el for empieza desde el segundo indice
-        self.budget_support = np.arange(-1, 5, 1)
+        self.budget_support = np.arange(-1, 30, 1)
         self.v_estimates = np.zeros((self.reward_z_concat.shape[0], self.budget_support.shape[0]))
         self.diff = np.zeros(self.budget_support.shape[0])
         self.diff.fill(1000.)
@@ -74,7 +74,7 @@ class BudgetValueIterator:
         # print(self.v_estimates[[0, 3]])
         # sys.exit(0)
         counter = 1
-        while np.max(self.diff) > 0.01:
+        while np.max(self.diff) > 0.05:
             print("================================================")
             print(counter)
             v_old = np.copy(self.v_estimates)
@@ -115,14 +115,17 @@ class BudgetValueIterator:
                 print("estimates")
                 self.v_estimates[:, i] = np.sum(np.multiply(self.reward_z_concat, inner), axis=1)
                 print(self.v_estimates)
-                # input("XXX")
+                input("XXX")
 
             print("diff")
             self.diff = abs(v_old - self.v_estimates)
             print(np.max(self.diff))
             counter += 1
 
-        sys.exit(0)
+        plt.plot(self.budget_support, self.v_estimates.transpose())
+        plt.show()
+
+        # sys.exit(0)
 
         return 1, 2
 
