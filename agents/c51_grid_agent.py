@@ -10,11 +10,14 @@ import sys
 from time import sleep
 
 from helpers.c51 import C51Agent
+from plotters import policy_plotter
 
 from helpers.networks import Networks
 
 import gym
 import gym_windy
+
+from val_tester_new import BudgetValueIterator
 
 
 def preprocessImg(img, size):
@@ -115,28 +118,33 @@ class C51GridAgent:
         :return:
         """
         predictions = []
-        qs = []
-        budget_qs = []
-        probs_of_alive = []
+        # qs = []
+        # budget_qs = []
+        # probs_of_alive = []
+        vi = []
         for s in range(len(int_states)):
             # creates a prediction to plot policies
             prediction = self.agent.predict(self.process_state(int_states[s]))
             predictions.append(prediction[0])
-            qs.append(prediction[1])
-            budget_qs.append(prediction[2])
-            probs_of_alive.append(prediction[3])
+            # qs.append(prediction[1])
+            # budget_qs.append(prediction[2])
+            # probs_of_alive.append(prediction[3])
+            exp = BudgetValueIterator(np.array(prediction[0]), np.array(self.agent.z))
+            budget_support, values = exp.run()
+            vi.append(values)
         # fills arrays
-        predictions = np.array(predictions)
-        qs = np.array(qs)
-        budget_qs = np.array(budget_qs)
-        probs_of_alive = np.array(probs_of_alive)
-        self.agent.plot_policy(int_states, predictions, qs, budget_qs,
-                               probs_of_alive)
+        # predictions = np.array(predictions)
+        # qs = np.array(qs)
+        # probs_of_alive = np.array(probs_of_alive)
+        # budget_qs = np.array(budget_qs)
+        policy_plotter.plot(int_states, np.array(budget_support), np.array(vi))
+        # policy_plotter.plot(int_states, self.agent.z, budget_qs)
+        # self.agent.plot_policy(int_states, budget_qs)
 
     def reset(self):
         self.data = range(self.img_rows * self.img_cols)
-        self.x_t = np.reshape(to_categorical(self.data)[self.init_obs],
-                              (self.img_rows, self.img_cols))
+        self.x_t = np.reshape(to_categorical(self.data)[self.init_obs], (self.img_rows, self.img_cols))
+        self.x_t = np.reshape(to_categorical(self.data)[2],(self.img_rows, self.img_cols))
         self.s_t = np.stack(([self.x_t] * self.img_channels), axis=0)
         self.s_t = np.rollaxis(self.s_t, 0, 3)
         self.s_t = np.expand_dims(self.s_t, axis=0)
@@ -154,7 +162,7 @@ class C51GridAgent:
 
         self.misc = {'sum_reward': 0}
 
-        # self.plot_policy()
+        self.plot_policy()
 
         while not self.is_terminated:
 

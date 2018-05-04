@@ -8,6 +8,7 @@ import pandas as pd
 
 import sys
 from plot_histogram import PlotHistogramRT
+from plotters import policy_plotter
 import matplotlib.pyplot as plt
 
 import numpy as np
@@ -120,96 +121,10 @@ class C51Agent:
             # action_idx = self.get_optimal_action(state)
             action_idx, misc = self.get_optimal_action(state=state, budget=b)
 
-            # plots the policy for every possible budget (support)
-
         return action_idx, misc
 
-    def plot_policy(self, states_labels, states_z_concat, qs, budget_qs,
-                    probs_of_alive):
-        """
-        Creates a policy plot for c51 for any given budget in the support
-        :param states_z_concat: z predictions. Shape (states, actions, num_atoms)
-        :param qs: q values. Shape (states, actions, num_atoms)
-        :param states_labels: a title for each state
-        :return:
-        """
-
-        # def equal_val_hack_for_two_actions(data):
-        #     """
-        #     For an array of shape (states, actions, bins) if bins are equal for an action
-        #     returns 0.5 instead of max arg.
-        #     :param data:
-        #     :return:
-        #     """
-        #     argmax = np.argmax(data, axis=1).astype(float)
-        #     mask = np.squeeze(np.diff(data, axis=1) == 0, axis=1)
-        #     argmax[mask] = 0.5
-        #     return argmax
-        #
-        # # calculates prob of being alive and the action with the largest prob
-        #
-        # maxarg_probs_of_alive = equal_val_hack_for_two_actions(probs_of_alive)
-        # print(probs_of_alive)
-        # print(maxarg_probs_of_alive)
-        #
-        # maxarg_budget_qs = np.argmax(budget_qs, axis=1)
-        # print(maxarg_budget_qs.shape)
-        #
-        # maxarg_qs = np.argmax(qs, axis=1)
-        # print(maxarg_qs.shape)
-        #
-        # num_states = maxarg_probs_of_alive.shape[0]
-        #
-        # print(budget_qs)
-        # print(maxarg_budget_qs[1, ::-1])
-        #
-        # # plots safe policy ----------------------------------------------------
-        # fig, ax = plt.subplots(nrows=3, sharex=True, sharey=True)
-        # plt.suptitle('Budgeted Policy')
-        #
-        # for i in range(num_states):
-        #     print(i, states_labels[i])
-        #     ax[i].plot(self.z, maxarg_probs_of_alive[i], label="argmax Beta(b, s, a))", linestyle='None', marker='.')
-        #     ax[i].plot(self.z, maxarg_budget_qs[i], label="argmax Vopt(s,a|b)", linestyle='None', marker='x')
-        #     ax[i].set_ylabel('S' + str(states_labels[i]))
-        # fig.tight_layout()
-        # plt.subplots_adjust(top=0.92)
-        # # plt.savefig('results/policy_safe.png')
-        # plt.legend()
-        # plt.yticks((0, 1), ('left', 'right'))
-        # # plt.ylabel('Bduget')
-        # plt.show()
-
-        def softmax_rows(x):
-            """Compute softmax values for each sets of scores in x."""
-            e_x = np.exp(x - np.tile(np.max(x, axis=1), (x.shape[1], 1)).transpose())
-            return np.divide(e_x, np.tile(e_x.sum(axis=1), (x.shape[1], 1)).transpose())
-
-        Qs = budget_qs
-        tau = 0.5
-        policy = np.array(
-            [softmax_rows(Qs[i, :, :].transpose() / tau).transpose() for i in
-             range(Qs.shape[0])])
-        print(states_labels)
-        fig = plt.figure(figsize=(4, 3))
-        plt.imshow(policy[:, 1, :].transpose(), aspect='auto', cmap=plt.get_cmap('gray'),
-                   origin='lower')
-        plt.xticks(np.arange(3), ['S'+str(s) for s in states_labels])
-        plt.xlim([-0.5, 2.5])
-        plt.xlabel("State")
-        plt.yticks(
-            np.linspace(0, policy.shape[2]-1, 5),
-            np.linspace(np.min(self.z), np.max(self.z), 5)) # NOT SURE WHAT RANGE OF SUPPORT YOU USED
-        plt.ylabel("Budget")
-        plt.clim([0, 1])
-        cbar = plt.colorbar(ticks=[0, 1])
-        cbar.ax.set_yticklabels(['Left (risky)', 'Right (safe)'])
-        # fig.savefig('samplefigure.pdf', bbox_extra_artists=(cbar.ax,),
-        #             bbox_inches='tight')
-        plt.show()
-
-
-
+    def plot_policy(self, states_labels, budget_qs):
+        policy_plotter.plot(states_labels, self.z, budget_qs)
         input("XXX")
 
     def get_optimal_action(self, state, budget=4.0, rp=0.00):
