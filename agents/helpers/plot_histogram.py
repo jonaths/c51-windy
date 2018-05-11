@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 
 import numpy as np
+import matplotlib
 import matplotlib.pyplot as plt
+
+matplotlib.rcParams.update({'font.size': 16})
 
 
 class PlotHistogramRT:
@@ -37,44 +40,58 @@ class PlotHistogramRT:
 
         # print np.asarray(new_x).shape
         #
+        # fig = plt.figure(self.this_fig_num)
+
+        fig, (ax1, ax2, ax3, ax4) = plt.subplots(nrows=4, ncols=1, sharex=True)
         fig = plt.figure(self.this_fig_num)
+
         plt.clf()
 
-        ax1 = plt.subplot(4, 1, 1)
+        # ax1 = plt.subplot(4, 1, 1)
         for ind in range(len(new_y[0])):
-            plt.bar(new_x, new_y[0][ind], width=self.width, label=self.label_names[ind])
+            ax1.bar(new_x, new_y[0][ind], width=self.width, label=self.label_names[ind])
         plt.grid(True)
-        plt.ylabel('c51')
-
-        ax2 = plt.subplot(4, 1, 2)
-        for ind in range(len(new_y[0])):
-            plt.plot(new_x, np.cumsum(new_y[0][ind]),
-                    label=self.label_names[ind])
-        plt.grid(True)
-        plt.ylabel('CDF')
-
-        # prob of alive given b
-        ax3 = plt.subplot(4, 1, 3)
-        for ind in range(len(new_y[0])):
-            plt.plot(+1 * new_x, new_y[2][ind],
-                     label=self.label_names[ind])
-        plt.grid(True)
-        plt.ylabel('Beta(b, s2, a)')
+        ax1.set_ylabel('c51')
         plt.legend()
 
-        ax3_a = plt.subplot(4, 1, 4, sharex = ax1)
+        # ax2 = plt.subplot(4, 1, 2)
+        for ind in range(len(new_y[0])):
+            ax2.plot(new_x, np.cumsum(new_y[0][ind]),
+                     label=self.label_names[ind])
+        plt.grid(True)
+        ax2.set_ylabel('CDF')
+        plt.legend()
+
+        # prob of alive given b
+        # ax3 = plt.subplot(4, 1, 3)
+        for ind in range(len(new_y[0])):
+            ax3.plot(+1 * new_x, new_y[2][ind],
+                     label=self.label_names[ind])
+        plt.grid(True)
+        ax3.set_ylabel('Beta')
+        plt.legend()
+
+        # ax3_a = plt.subplot(4, 1, 4, sharex=ax1)
         # ax3_b = ax3_a.twinx()
         for ind in range(len(new_y[0])):
             # modified q values
             # ax3_b.plot(-1 * new_x, new_y[3][ind], linestyle='--')
             # ax3_b.set_ylabel('Q')
             # q values
-            ax3_a.plot(+1 * new_x, new_y[1][ind])
-            ax3_a.set_ylabel('Vopt(s2,a|b)')
+            ax4.plot(+1 * new_x, new_y[1][ind])
+            ax4.set_ylabel('Qopt')
+        plt.legend()
         plt.grid(True)
 
+        # top = 0.973,
+        # bottom = 0.068,
+        # left = 0.122,
+        # right = 0.978,
+        # hspace = 0.595,
+        # wspace = 0.2
+
         fig.canvas.draw()
-        plt.tight_layout(pad=0.4, w_pad=0.4, h_pad=0.4)
+        plt.tight_layout()
         plt.pause(0.00001)
 
 

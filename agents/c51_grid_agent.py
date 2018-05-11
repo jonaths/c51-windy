@@ -112,7 +112,7 @@ class C51GridAgent:
 
         return s_t1
 
-    def plot_policy(self, int_states=[1, 2, 3]):
+    def plot_policy(self, int_states=[2]):
         """
         Makes plot policies for all actions and states  int_states
         :return:
@@ -162,7 +162,7 @@ class C51GridAgent:
 
         self.misc = {'sum_reward': 0}
 
-        self.plot_policy()
+        # self.plot_policy()
 
         while not self.is_terminated:
 
