@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 
-matplotlib.rcParams.update({'font.size': 16})
+# matplotlib.rcParams.update({'font.size': 16})
 
 
 class PlotHistogramRT:

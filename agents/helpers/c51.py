@@ -14,14 +14,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 import matplotlib.pylab as pylab
-params = {
-    'legend.fontsize': 'xx-large',
-    'axes.labelsize': 'xx-large',
-    'axes.titlesize':'xx-large',
-    'xtick.labelsize':'xx-large',
-    'ytick.labelsize':'xx-large'
-    }
-pylab.rcParams.update(params)
+# params = {
+#     'legend.fontsize': 'xx-large',
+#     'axes.labelsize': 'xx-large',
+#     'axes.titlesize':'xx-large',
+#     'xtick.labelsize':'xx-large',
+#     'ytick.labelsize':'xx-large'
+#     }
+# pylab.rcParams.update(params)
 
 
 def reduce_noise(bins, reference=0.85):
@@ -68,7 +68,7 @@ class C51Agent:
         self.final_epsilon = 0.0001
         self.batch_size = 32
         self.observe = 1000
-        self.explore = 200000
+        self.explore = 10000
         # self.observe = 1
         # self.explore = 2
         self.frame_per_action = 4
@@ -112,10 +112,11 @@ class C51Agent:
         """
         Get action from model using epsilon-greedy policy
         """
-        # if np.random.rand() <= self.epsilon:
-        if np.random.rand() <= 0:
+        if np.random.rand() <= self.epsilon:
+        # if np.random.rand() <= 0:
             #     print("----------Random Action----------")
             action_idx = random.randrange(self.action_size)
+            misc = {}
         else:
             # selects the action
             # action_idx = self.get_optimal_action(state)
@@ -145,12 +146,12 @@ class C51Agent:
         action_idx = np.argmax(budget_q)
         # action_idx = np.argmax(q)
 
-        print("debug")
-        print(state)
-        print("b:", budget)
-        print("q:", q)
-        print("b_q", budget_q)
-        print("action_idx", action_idx)
+        # print("debug")
+        # print(state)
+        # print("b:", budget)
+        # print("q:", q)
+        # print("b_q", budget_q)
+        # print("action_idx", action_idx)
 
         misc = {
             # original q values per action
