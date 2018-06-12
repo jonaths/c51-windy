@@ -67,8 +67,8 @@ class C51Agent:
         # self.initial_epsilon = 0.0001
         self.final_epsilon = 0.0001
         self.batch_size = 32
-        self.observe = 1000
-        self.explore = 10000
+        self.observe = 2000
+        self.explore = 100000
         # self.observe = 1
         # self.explore = 2
         self.frame_per_action = 4
@@ -77,8 +77,8 @@ class C51Agent:
 
         # Initialize Atoms
         self.num_atoms = num_atoms  # 51 for C51
-        self.v_max = +15  # Max possible score for Defend the center is 26 - 0.1*26 = 23.4
-        self.v_min = -15  # -0.1*26 - 1 = -3.6
+        self.v_max = +10  # Max possible score for Defend the center is 26 - 0.1*26 = 23.4
+        self.v_min = -20  # -0.1*26 - 1 = -3.6
         self.delta_z = (self.v_max - self.v_min) / float(self.num_atoms - 1)
         self.z = [self.v_min + i * self.delta_z for i in range(self.num_atoms)]
 
@@ -98,7 +98,7 @@ class C51Agent:
         self.var_steps = []  # Variance of Survival Time
         self.end_count = []
         self.total_reward = 0
-        self.action_labels = ['0 left (risky)', '1 right (safe)']
+        self.action_labels = [0, 1, 2, 3]
         self.real_time_plotter = PlotHistogramRT(action_size, num_atoms,
                                                  self.action_labels)
 

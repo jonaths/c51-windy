@@ -42,15 +42,15 @@ class C51GridAgent:
         self.sess = tf.Session(config=self.config)
         K.set_session(self.sess)
 
-        self.env = gym.make("windy-v0")
+        self.env = gym.make("beach-v0")
         self.env.reset()
 
         # misc = game_state.game_variables  # [KILLCOUNT, AMMO, HEALTH]
         self.misc = {'final_state': None}
         self.prev_misc = self.misc
 
-        self.action_size = 2
-        self.img_rows, self.img_cols = 1, 5
+        self.action_size = 4
+        self.img_rows, self.img_cols = 8, 8
         self.img_channels = 2
 
         # C51
@@ -63,7 +63,7 @@ class C51GridAgent:
             self.state_size, self.num_atoms,
             self.action_size,
             self.agent.learning_rate)
-        self.agent.load_model("models/c51_ddqn.h5")
+        # self.agent.load_model("models/c51_ddqn.h5")
         self.agent.target_model = Networks.value_distribution_network(
             self.state_size, self.num_atoms,
             self.action_size,
@@ -71,7 +71,7 @@ class C51GridAgent:
 
         self.data = range(self.img_rows * self.img_cols)
 
-        self.init_obs = 2
+        self.init_obs = 41
         self.x_t = np.reshape(to_categorical(self.data)[self.init_obs],
                               (self.img_rows, self.img_cols))
         self.s_t = np.stack(([self.x_t] * self.img_channels), axis=0)
@@ -179,11 +179,11 @@ class C51GridAgent:
             # sleep(0.1)
             # print("st")
             # print(self.s_t)
-            self.env.render()
-            self.agent.plot_histogram(self.s_t1)
+            # self.env.render()
+            # self.agent.plot_histogram(self.s_t1)
 
-            self.action_idx = input("action")
-            # self.action_idx, add_info = self.agent.get_action(self.s_t, current_budget)
+            # self.action_idx = input("action")
+            self.action_idx, add_info = self.agent.get_action(self.s_t, current_budget)
 
             self.a_t[self.action_idx] = 1
             self.obs, self.r_t, self.done, self.misc = self.env.step(

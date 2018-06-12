@@ -52,7 +52,7 @@ class PlotHistogramRT:
             ax1.bar(new_x, new_y[0][ind], width=self.width, label=self.label_names[ind])
         plt.grid(True)
         ax1.set_ylabel('c51')
-        plt.legend()
+        ax1.legend()
 
         # ax2 = plt.subplot(4, 1, 2)
         for ind in range(len(new_y[0])):
@@ -60,7 +60,7 @@ class PlotHistogramRT:
                      label=self.label_names[ind])
         plt.grid(True)
         ax2.set_ylabel('CDF')
-        plt.legend()
+        # ax2.legend()
 
         # prob of alive given b
         # ax3 = plt.subplot(4, 1, 3)
@@ -69,7 +69,7 @@ class PlotHistogramRT:
                      label=self.label_names[ind])
         plt.grid(True)
         ax3.set_ylabel('Beta')
-        plt.legend()
+        # ax3.legend()
 
         # ax3_a = plt.subplot(4, 1, 4, sharex=ax1)
         # ax3_b = ax3_a.twinx()
@@ -80,7 +80,7 @@ class PlotHistogramRT:
             # q values
             ax4.plot(+1 * new_x, new_y[1][ind])
             ax4.set_ylabel('Qopt')
-        plt.legend()
+        # ax4.legend()
         plt.grid(True)
 
         # top = 0.973,
