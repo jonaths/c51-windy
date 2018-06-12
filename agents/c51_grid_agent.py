@@ -63,7 +63,7 @@ class C51GridAgent:
             self.state_size, self.num_atoms,
             self.action_size,
             self.agent.learning_rate)
-        # self.agent.load_model("models/c51_ddqn.h5")
+        self.agent.load_model("models/c51_ddqn.h5")
         self.agent.target_model = Networks.value_distribution_network(
             self.state_size, self.num_atoms,
             self.action_size,
@@ -137,7 +137,7 @@ class C51GridAgent:
         # qs = np.array(qs)
         # probs_of_alive = np.array(probs_of_alive)
         # budget_qs = np.array(budget_qs)
-        policy_plotter.plot(int_states, np.array(budget_support), np.array(vi))
+        # policy_plotter.plot(int_states, np.array(budget_support), np.array(vi))
         # policy_plotter.plot(int_states, self.agent.z, budget_qs)
         # self.agent.plot_policy(int_states, budget_qs)
 
@@ -179,11 +179,11 @@ class C51GridAgent:
             # sleep(0.1)
             # print("st")
             # print(self.s_t)
-            # self.env.render()
-            # self.agent.plot_histogram(self.s_t1)
+            self.env.render()
+            self.agent.plot_histogram(self.s_t1)
 
-            # self.action_idx = input("action")
-            self.action_idx, add_info = self.agent.get_action(self.s_t, current_budget)
+            self.action_idx = input("action")
+            # self.action_idx, add_info = self.agent.get_action(self.s_t, current_budget)
 
             self.a_t[self.action_idx] = 1
             self.obs, self.r_t, self.done, self.misc = self.env.step(

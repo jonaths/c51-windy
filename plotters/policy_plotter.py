@@ -2,7 +2,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 
-matplotlib.rcParams.update({'font.size': 18})
+# matplotlib.rcParams.update({'font.size': 18})
 
 
 def plot(states_labels, support, Qs):
