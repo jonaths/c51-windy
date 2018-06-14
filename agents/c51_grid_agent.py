@@ -197,15 +197,11 @@ class C51GridAgent:
             self.rms.update(
                 s=self.misc['step_seq'][-2],
                 r=self.r_t,
-                sprime=self.misc['step_seq'][-1],
-                sprime_features=self.env.ind2coord(self.misc['step_seq'][-1]))
+                sprime=self.obs,
+                sprime_features=self.env.ind2coord(self.obs))
 
-            # print("misc")
-            # print(self.misc)
-            # print("obs:", str(self.obs))
-
-            print(self.misc)
-            print(self.misc['step_seq'][-1], self.misc['step_seq'][-2])
+            risk_penalty = self.rms.get_risk(self.obs)
+            self.r_t = self.r_t +  risk_penalty
 
             if self.is_terminated:
 
@@ -213,12 +209,11 @@ class C51GridAgent:
                     self.max_life = self.life
 
                 self.GAME += 1
-                self.final_state_buffer.append(
-                    0 if self.misc['step_seq'][-1] == 8 else 1)
+                self.final_state_buffer.append(0)
                 self.steps_buffer.append(len(self.misc['step_seq']))
                 self.reward_buffer.append(self.misc['sum_reward'])
                 self.env.reset()
-                input('xxx')
+
 
             self.s_t1 = self.process_state(self.obs)
 
@@ -227,10 +222,6 @@ class C51GridAgent:
                                                self.prev_misc,
                                                self.t,
                                                self.is_terminated)
-
-
-
-
 
             if self.is_terminated:
                 self.life = 0
