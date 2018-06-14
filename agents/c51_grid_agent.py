@@ -16,6 +16,7 @@ from helpers.networks import Networks
 
 import gym
 import gym_windy
+from rms.rms import RmsAlg
 
 from val_tester_new import BudgetValueIterator
 
@@ -92,6 +93,10 @@ class C51GridAgent:
 
         # Buffer to compute rolling statistics
         self.final_state_buffer, self.reward_buffer, self.steps_buffer = [], [], []
+
+        # RmsAlg(rthres, influence, risk_default)
+        self.rms = RmsAlg(rthres=-1, influence=2, risk_default=0)
+        self.rms.add_to_v(self.init_obs, self.env.ind2coord(self.init_obs))
 
     def process_state(self, obs):
         """
@@ -182,17 +187,25 @@ class C51GridAgent:
             self.env.render()
             self.agent.plot_histogram(self.s_t1)
 
-            self.action_idx = input("action")
-            # self.action_idx, add_info = self.agent.get_action(self.s_t, current_budget)
+            # self.action_idx = input("action")
+            self.action_idx, add_info = self.agent.get_action(self.s_t, current_budget)
 
             self.a_t[self.action_idx] = 1
-            self.obs, self.r_t, self.done, self.misc = self.env.step(
-                self.action_idx)
+            self.obs, self.r_t, self.done, self.misc = self.env.step(self.action_idx)
             self.is_terminated = self.done
+
+            self.rms.update(
+                s=self.misc['step_seq'][-2],
+                r=self.r_t,
+                sprime=self.misc['step_seq'][-1],
+                sprime_features=self.env.ind2coord(self.misc['step_seq'][-1]))
 
             # print("misc")
             # print(self.misc)
             # print("obs:", str(self.obs))
+
+            print(self.misc)
+            print(self.misc['step_seq'][-1], self.misc['step_seq'][-2])
 
             if self.is_terminated:
 
@@ -205,6 +218,7 @@ class C51GridAgent:
                 self.steps_buffer.append(len(self.misc['step_seq']))
                 self.reward_buffer.append(self.misc['sum_reward'])
                 self.env.reset()
+                input('xxx')
 
             self.s_t1 = self.process_state(self.obs)
 
@@ -213,6 +227,10 @@ class C51GridAgent:
                                                self.prev_misc,
                                                self.t,
                                                self.is_terminated)
+
+
+
+
 
             if self.is_terminated:
                 self.life = 0
