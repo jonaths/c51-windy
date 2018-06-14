@@ -112,8 +112,8 @@ class C51Agent:
         """
         Get action from model using epsilon-greedy policy
         """
-        # if np.random.rand() <= self.epsilon:
-        if np.random.rand() <= 0:
+        if np.random.rand() <= self.epsilon:
+        # if np.random.rand() <= 0:
             #     print("----------Random Action----------")
             action_idx = random.randrange(self.action_size)
             misc = {}

@@ -64,7 +64,7 @@ class C51GridAgent:
             self.state_size, self.num_atoms,
             self.action_size,
             self.agent.learning_rate)
-        self.agent.load_model("models/c51_ddqn.h5")
+        # self.agent.load_model("models/c51_ddqn.h5")
         self.agent.target_model = Networks.value_distribution_network(
             self.state_size, self.num_atoms,
             self.action_size,
@@ -184,8 +184,8 @@ class C51GridAgent:
             # sleep(0.1)
             # print("st")
             # print(self.s_t)
-            self.env.render()
-            self.agent.plot_histogram(self.s_t1)
+            # self.env.render()
+            # self.agent.plot_histogram(self.s_t1)
 
             # self.action_idx = input("action")
             self.action_idx, add_info = self.agent.get_action(self.s_t, current_budget)
